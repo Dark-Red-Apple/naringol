@@ -1,0 +1,391 @@
+<?php $newMobileMenu = true; ?>
+<?php
+////
+$images = Mage::getModel('netweb_subcategory/subimages')->getCollection();
+$categoryTreesLevel2 = [];
+$categoryTreesLevel3 = [];
+$categoryTreesLevel3All = [];
+$categoryTreesLevel4 = [];
+$allCats = [];
+$allCategory = Mage::getModel('catalog/category')
+    ->getCollection()
+    ->addIsActiveFilter()
+    ->addAttributeToSelect("*");
+$categoriesLevel2 = Mage::getModel('catalog/category')
+    ->getCollection()
+    ->addIsActiveFilter()
+    ->addAttributeToFilter("level", 2)
+    ->addAttributeToSort('position', 'ASC')
+    ->addAttributeToSelect("*");
+$categoriesLevel3 = Mage::getModel('catalog/category')
+    ->getCollection()
+    ->addIsActiveFilter()
+    ->addAttributeToFilter("level", 3)
+    ->addAttributeToSort('position', 'ASC')
+    ->addAttributeToSelect("*");
+$categoriesLevel4 = Mage::getModel('catalog/category')
+    ->getCollection()
+    ->addIsActiveFilter()
+    ->addAttributeToFilter("level", 4)
+    ->addAttributeToSort('position', 'ASC')
+    ->addAttributeToSelect("*");
+foreach ($categoriesLevel2 as $level2) {
+    $categoryTreesLevel2[$level2->getId()] = $level2->getName();
+}
+foreach ($categoriesLevel3 as $level3) {
+    if (array_key_exists($level3->getParentId(), $categoryTreesLevel2)) {
+        $categoryTreesLevel3[$level3->getParentId()][$level3->getId()] = $level3->getName();
+    }
+    $categoryTreesLevel3All[$level3->getId()] = $level3->getId();
+}
+foreach ($categoriesLevel4 as $level4) {
+    if (array_key_exists($level4->getParentId(), $categoryTreesLevel3All)) {
+        $categoryTreesLevel4[$level4->getParentId()][$level4->getId()] = $level4->getName();
+    }
+}
+foreach ($allCategory as $c) {
+    $allCats[$c->getId()] = $c->getUrl();
+}
+/*$categoryTreesLevel2 = [];
+$categoryTreesLevel3 = [];
+$categoryTreesLevel4 = [];
+$categoryTreeCollection = Mage::getModel('catalog/category')
+    ->getCollection()
+    ->addAttributeToSelect("*")
+    ->addIsActiveFilter();
+foreach ($categoryTreeCollection as $category) {
+    if ($category->getLevel() == 2) {
+        $categoryTreesLevel2[$category->getId()][] = $category->getId();
+    }
+    elseif ($category->getLevel() == 3){
+        $categoryTreesLevel3[$category->getId()][] = $category->getName();
+        $categoryTreesLevel2[$category->getParentId()]['child'] = $categoryTreesLevel3;
+    }
+    elseif ($category->getLevel() == 4){
+        $categoryTreesLevel4[$category->getId()][] = $category->getId();
+        $categoryTreesLevel3[$category->getParentId()]['child'] = $categoryTreesLevel4;
+    }
+}*/
+
+//var_dump($categoryTreesLevel3);
+//Mage::log($categoryTreesLevel2, null, '222.log', true);
+//Mage::log($categoryTreesLevel3, null, '333.log', true);
+//Mage::log($categoryTreesLevel4, null, '8888888888.log', true);
+//$detect = new Mobile_Detect;
+?>
+
+
+<?php $isMobile = Zend_Http_UserAgent_Mobile::match(Mage::helper('core/http')->getHttpUserAgent(), $_SERVER); ?>
+
+
+<?php //if ($newMobileMenu && $isMobile ): ?>
+<?php if (true): ?>
+    <style>
+        @media (min-width: 1198px) {
+            #mobile_menu {
+                display: none !important;
+            }
+        }
+
+        .mobile_menu {
+            /*vertical-align: top;*/
+            /*height: 100px;*/
+            background: #fff;
+            width: 91%;
+            z-index: 1111111111;
+            position: fixed;
+            left: -414px;
+            /*top: 0px;*/
+            bottom: 0px;
+            height: 100%;
+            /*overflow-y: auto;*/
+            right: -1500px;
+            padding-top: 70px;
+            /*display:none;*/
+        }
+
+        #close_new_mobile_menu {
+            width: 5%;
+            text-align: left;
+            /* float: left; */
+            cursor: pointer;
+            /* margin-left: 30px; */
+            /* margin-right: 282px; */
+            /* margin-top: 20px; */
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+
+        ul#next_level_lis {
+            padding: 20px 28px;
+        }
+
+        ul#cates_list {
+            padding: 40px 28px 30px;
+        }
+
+        .new_lists li {
+            margin-bottom: 0;
+            padding: 15px 0;
+            color: #111;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .child_arrow {
+            float: left;
+        }
+
+        .child_arrow img {
+            transform: rotate(180deg);
+        }
+
+        span.child_arrow {
+            width: 100%;
+            text-align: left;
+
+            float: left;
+            top: -24px;
+            position: relative;
+        }
+
+        #next_level_lis span:nth-child(1) {
+            z-index: 9999999999999;
+            position: relative;
+            background: #fff;
+            padding: 2px 0;
+        }
+
+        ul#cates_list span:nth-child(1) {
+            z-index: 9999999999999;
+            position: relative;
+            background: #fff;
+            padding: 2px 0;
+        }
+
+        /*.child_arrow::after {*/
+        /*    display: block;*/
+        /*    content: "jj";*/
+        /*    width: 16px;*/
+        /*    height: 10px;*/
+        /*    !*background: transparent url(https://cdn.shopify.com/s/files/1/1338/0835/files/icon-caret-right.svg?231618) no-repeat;*!*/
+        /*    transform: rotate(180deg);*/
+        /*}*/
+
+
+        .title_category {
+            color: #999 !important;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        #previous_list {
+            margin-right: 30px;
+            margin-top: 20px;
+            width: 3%;
+            display: none;
+        }
+    </style>
+    <div class="mobile_menu" id="mobile_menu">
+        <div id="close_new_mobile_menu">
+            <? xml version = "1.0" encoding = "iso-8859-1"?>
+            <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                 x="0px" y="0px"
+                 viewBox="0 0 409.806 409.806" style="enable-background:new 0 0 409.806 409.806;" xml:space="preserve">
+<g>
+    <g>
+        <path d="M228.929,205.01L404.596,29.343c6.78-6.548,6.968-17.352,0.42-24.132c-6.548-6.78-17.352-6.968-24.132-0.42
+            c-0.142,0.137-0.282,0.277-0.42,0.42L204.796,180.878L29.129,5.21c-6.78-6.548-17.584-6.36-24.132,0.42
+            c-6.388,6.614-6.388,17.099,0,23.713L180.664,205.01L4.997,380.677c-6.663,6.664-6.663,17.468,0,24.132
+            c6.664,6.662,17.468,6.662,24.132,0l175.667-175.667l175.667,175.667c6.78,6.548,17.584,6.36,24.132-0.42
+            c6.387-6.614,6.387-17.099,0-23.712L228.929,205.01z"/>
+    </g>
+</g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+</svg>
+
+        </div>
+        <div style="overflow-y: scroll;    height: 100%;">
+        <div id="previous_list" onclick="previousList(this)">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 15.5 28.3" style="enable-background:new 0 0 15.5 28.3;" xml:space="preserve">
+<style type="text/css">
+    .st0 {
+        fill: #222222;
+    }
+</style>
+                <g>
+                    <polygon class="st0" points="15.5,14.1 14.1,15.5 1.4,28.3 0,26.9 12.7,14.1 0,1.4 1.4,0  "/>
+                </g>
+</svg>
+        </div>
+        <div id="lists">
+            <ul id="next_level_lis" class="new_lists" style="display: none"></ul>
+            <ul id="cates_list" class="new_lists">
+                <?php foreach ($categoryTreesLevel2 as $id1 => $label2): ?>
+                    <?php if ($id1 == 640): ?>
+                        <?php continue; ?>
+                    <?php endif; ?>
+                    <li>
+                        <span><a href="<?= $allCats[$id1] ?>"><?= $label2 ?></a></span>
+                        <?php if (array_key_exists($id1, $categoryTreesLevel3)): ?>
+                            <span onclick="nextLevel(this)" data-parentlist="cates_list"
+                                  data-level3="level_3_<?= $id1 ?>" class="child_arrow">
+                                <img width="9px" src="<?= $this->getSkinUrl('images/angle-left-solid.svg'); ?>" alt="">
+                            </span>
+                        <?php endif; ?>
+                    </li>
+                    <?php if (array_key_exists($id1, $categoryTreesLevel3)): ?>
+                        <ul class="new_lists" style="display: none;" id="level_3_<?= $id1 ?>"
+                            data-current="level_3_<?= $id1 ?>">
+                            <li class="title_category"><?= $label2 ?></li>
+                            <?php foreach ($categoryTreesLevel3[$id1] as $id3 => $label3): ?>
+                                <li>
+                                    <span><a href="<?= $allCats[$id3] ?>"><?= $label3 ?></a></span>
+                                    <?php if (array_key_exists($id3, $categoryTreesLevel4)): ?>
+                                        <span onclick="nextLevel(this)" data-parentlist="level_3_<?= $id1 ?>"
+                                              data-level3="level_4_<?= $id3 ?>" class="child_arrow">
+                                           <img width="9px"
+                                                src="<?= $this->getSkinUrl('images/angle-left-solid.svg'); ?>" alt="">
+                                        </span>
+                                    <?php endif; ?>
+                                </li>
+                                <?php if (array_key_exists($id3, $categoryTreesLevel4)): ?>
+                                    <ul class="new_lists" style="display: none;" id="level_4_<?= $id3 ?>"
+                                        data-current="level_4_<?= $id3 ?>">
+                                        <li class="title_category"><?= $label3 ?></li>
+                                        <?php foreach ($categoryTreesLevel4[$id3] as $id4 => $label4): ?>
+                                            <li><span><a href="<?= $allCats[$id4] ?>"><?= $label4 ?></a></span></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <li>
+                    <span><a href="https://naringol.com/skintype">تست پوست</a></span>
+                </li>
+                <li>
+                    <span><a href="https://naringol.com/product-info">راهنمای محصولات   </a></span>
+                </li>
+            </ul>
+        </div>
+
+        <div style="text-align: center;">
+            <?php foreach ($images as $_image): ?>
+                <a href="<?= $_image->getLandingUrl() ?>">
+                    <img class="img-responsive" style="padding: 6px 11px;"
+                         src="<?= Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $_image->getPath() ?>"
+                         alt="<?= $_image->getTitle() ?>"></a>
+                <!-- <p><?= $_image->getTitle() ?></p> -->
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+    <script>
+        function previousList(elem) {
+            var prev = elem.dataset.next;
+            document.getElementById("next_level_lis").innerHTML = '';
+            if (prev === 'cates_list') {
+                document.getElementById("next_level_lis").style.display = 'none';
+                document.getElementById("cates_list").style.display = 'block';
+                elem.style.display = 'none';
+            } else {
+                document.getElementById("cates_list").style.display = 'none';
+                var nextLevel = document.getElementById(prev).innerHTML;
+                document.getElementById("next_level_lis").innerHTML = nextLevel;
+                elem.dataset.next = 'cates_list';
+            }
+        }
+
+        function nextLevel(elem) {
+            var level3 = elem.dataset.level3;
+            var parent_list = elem.dataset.parentlist;
+            var nextLevel = document.getElementById(level3).innerHTML;
+            document.getElementById("next_level_lis").innerHTML = '';
+            document.getElementById("next_level_lis").style.display = 'block';
+            document.getElementById("cates_list").style.display = 'none';
+            document.getElementById("next_level_lis").innerHTML = nextLevel;
+            document.getElementById("previous_list").style.display = 'block';
+            document.getElementById("previous_list").dataset.next = parent_list;
+        }
+
+        jQuery(function ($) {
+            $(document).ready(function () {
+                $("#close_new_mobile_menu").click(function () {
+                    $("#mobile_menu").animate({
+                        'right': '-1500px',
+                        // 'display':'block'
+                    }, 1000, 'linear', function () {
+                    });
+                    $(".btn-nav").show();
+                    //$("#klon").remove();
+                    $("#next_level_lis").html('');
+                    $("#next_level_lis").hide();
+                    $("#cates_list").show();
+                    jQuery("body").css("overflow", "scroll");
+                    document.getElementById("previous_list").style.display = 'none';
+                    document.getElementById("previous_list").dataset.next = '';
+                });
+                $(".child_arrowsss").click(function () {
+                    var level3 = $(this).data('level3');
+                    var nextLevel = $("#" + level3).html();
+                    console.log(nextLevel);
+                    $("#next_level_lis").html('');
+                    $("#cates_list").hide();
+                    $("#next_level_lis").html(nextLevel);
+                    //     $("#klon").remove();
+                    // $("#" + level3).clone().prop('id', 'klon').show().appendTo("#lists");
+                    //   $("#" + level3).prop('id', 'klon').show().appendTo("#lists");
+                });
+                /*$(document).click(function(e) {
+                    console.log(e.target)
+                    if(!$(e.target).hasClass('btn-nav') )
+                    {
+                        if ($("#mobile_menu").hasClass('active_mobile')){
+                            $("#mobile_menu").animate({
+                                'right':'-414px',
+                                // 'display':'block'
+                            },1000, 'linear', function(){
+                            });
+                            $("#mobile_menu").removeClass('active_mobile');
+                            $("#btn_show").show();
+                        }
+                    }
+                });*/
+            })
+        })
+    </script>
+<?php endif; ?>

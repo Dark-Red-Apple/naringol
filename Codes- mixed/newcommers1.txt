@@ -1,0 +1,24 @@
+<div style="width:100%;">
+	<img style="width:100%;"></img>
+	<p style="position:absolute; width:100px; height:100px; right: 50%; margin-left:50px; top:50%;"></p>
+</div>
+<div class="row">
+	<div class="col-lg-4 col-mg-4 col-sm-2 col-xs-12" style="height:300px;">
+		<p style="position:absolute; width:100%; height:100%; right:0px;left:0px;top:0; text-aligh:center; vertical-align:middle; display:table-cell; visiblity:hidden;"></p>
+	</div>
+	<div class="col-lg-4 col-mg-4 col-sm-2 col-xs-12">
+		<p></p>
+	</div>
+	<div class="col-lg-4 col-mg-4 col-sm-2 col-xs-12">
+		<p></p>
+	</div>
+	<div class="col-lg-4 col-mg-4 col-sm-2 col-xs-12">
+		<p></p>
+	</div>
+	<div class="col-lg-4 col-mg-4 col-sm-2 col-xs-12"
+		<p></p>
+	</div>
+	<div class="col-lg-4 col-mg-4 col-sm-2 col-xs-12">
+		<p></p>
+	</div>
+</div>

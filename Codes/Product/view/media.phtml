@@ -1,0 +1,166 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+
+$theme = $this->helper('typologancee');
+$helpImg = $this->helper('typologancee/image');
+$imgWidth = $theme->getCfg('category/image_width') ? $theme->getCfg('category/image_width') : 270;
+$imgHeight = $theme->getCfg('category/image_height') ? $theme->getCfg('category/image_height') : 360;
+if ($theme->getCfg('category/aspect_ratio')) {
+    $imgHeight = 0;
+}
+$cfgrtl = $theme->getThemeLayoutCfg('responsive/rtl_language');
+$gifThumbnail = Mage::helper('netweb_gif')->getGifThumbnail($_product->getId());
+$gifLarge = Mage::helper('netweb_gif')->getGifLarge($_product->getId());
+?>
+<div class="product-image-wrap">
+    <?php if ($_product->getAttributeText('narin_campaigns')): ?>
+        <span class="n_guarantee " style=" left: 0; right: auto; width: 100px;"><span><img
+                        src="https://naringol.com/media/wysiwyg/nar6.png"
+                        style="width:100%; object-fit: cover; object-position:center; "/></span></span>
+    <?php endif ?>
+    <div class="product-image product-image-zoom">
+        <div class="product-image-gallery">
+            <?php if (count($this->getGalleryImages()) == 0) : ?>
+                <a id="image-main" href="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
+                   data-zoom-image="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
+                   class="gallery-image visible">
+                    <img
+                            class="img-responsive"
+                            src="<?php echo $helpImg->getImg($_product, 500, round(500 * $imgHeight / $imgWidth), 'image'); ?>"
+                            alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
+                            title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>"
+                            itemprop="image"/>
+                </a>
+            <?php else : ?>
+                <?php $i = 0;
+                foreach ($this->getGalleryImages() as $_image): ?>
+                    <a id="image-<?php echo $i; ?>" href="<?php echo $this->getGalleryImageUrl($_image); ?>"
+                       data-zoom-image="<?php echo $this->getGalleryImageUrl($_image); ?>"
+                       class="gallery-image <?php if ($i == 0) echo 'visible' ?>">
+                        <img class="img-responsive"
+                             src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(500, round(500 * $imgHeight / $imgWidth)); ?>"
+                             alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" <?php if ($i == 0) echo 'itemprop="image"'; ?> />
+                    </a>
+                    <?php $i++; endforeach; ?>
+
+                <!--    khani add gif small-->
+                <?php if ($gifLarge['status'] == 'success'): ?>
+                    <?php foreach ($gifLarge['images'] as $image): ?>
+                        <a id="image-<?php echo $i; ?>" href=""
+                           data-zoom-image=""
+                           class="gallery-image <?php if ($i == 0) echo 'visible' ?>">
+                            <img class="img-responsive"
+                                 src="<?= $image[0] ?>"
+                                 alt="<?= $image[1] ?>" <?php if ($i == 0) echo 'itemprop="image"'; ?> />
+                        </a>
+                        <?php $i++; endforeach; ?>
+                <?php endif; ?>
+
+
+
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <?php if (count($this->getGalleryImages()) > 0): ?>
+        <div class="more-views">
+            <div id="gallery_01" class="product-image-thumbs owl-carousel owl-theme">
+                <?php $i = 0;
+                foreach ($this->getGalleryImages() as $_image): ?>
+                    <div class="thumb-item">
+                        <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
+                           data-image-index="<?php echo $i; ?>">
+                            <img class="img-responsive"
+                                 src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(135, round(135 * $imgHeight / $imgWidth)); ?>"
+                                 alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"/>
+                        </a>
+                    </div>
+                    <?php $i++; endforeach; ?>
+
+                <!--    khani add gif thumbnail-->
+                <?php if ($gifThumbnail['status'] == 'success'): ?>
+                    <?php foreach ($gifThumbnail['images'] as $image): ?>
+                        <div class="thumb-item">
+                            <a class="thumb-link" href="#" title="" data-image-index="<?php echo $i; ?>">
+                                <img class="img-responsive" src="<?php echo $image[0] ?>" alt="<?php echo $image[1] ?>"/>
+                            </a>
+                        </div>
+                        <?php $i++; endforeach; ?>
+                <?php endif; ?>
+
+
+
+            </div>
+        </div>
+    <?php endif; ?>
+
+</div>
+
+<?php echo $this->getChildHtml('after'); ?>
+
+<script>
+    var configzoom = <?php echo Mage::helper('typologancee')->getElevateZoomConfig()?>;
+    var carouseloption = {
+        loop: false,
+        rewind: true,
+        dots: false,
+        margin: 20,
+        nav: true,
+        items: 4,
+        rtl: Boolean(<?php echo $cfgrtl; ?>),
+        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>']
+    };
+    var lightboxconfig = {
+        rel: 'gallery-image',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        fixed: true,
+        close: '<i aria-hidden="true" class="icon_close"></i>',
+        current: '{current}/{total}',
+        className: 'gallery-show'
+    };
+    jQuery(document).ready(function ($) {
+        $('.product-image-thumbs').owlCarousel(carouseloption);
+
+        <?php if (!Mage::getStoreConfig('typologancee/product_page/zoom_enable')) : ?>
+        $('.typo-wrapper').addClass('hidezoom');
+        <?php endif; ?>
+    });
+
+    jQuery(window).load(function ($) {
+        jQuery('.gallery-image').colorbox(lightboxconfig);
+    });
+</script>

@@ -1,0 +1,12 @@
+<div class="container-fluid" style="background: #F3F6F6;">
+	<div style="height: 500px;" class="row table-row">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 home-narinbox-img" style="padding: 0;">
+			<img style="object-fit:cover; width:100%; height:100%" class="home-narinbox-img"src="http://127.0.0.1/naringol/media/wysiwyg/naringol_home_narinbox.jpg" alt="نارین_باکس">
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 home-narinbox-text" style="display: table-cell;vertical-align: middle;">
+			<p style="display: table-cell;vertical-align: middle;">
+				<h2>نارین باکس</h2><p style="margin-top: 30px;">نارین باکس پکیج های مراقبت از پوست</p><a style="border:solid 1px black; padding:7px; min-width:200px; background:white; color: black;cursor: pointer;margin-top: 30px;display: inline-block;text-align: center;">خرید از نارین باکس</a></p>
+				
+		</div>
+	</div>
+</div>

@@ -1,0 +1,684 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><head>
+<head:meta></head:meta>
+<!-- Layout - v1.2
+mahfun.blog.ir template no. 29
+mahfun.blog.ir قالب شماره 29 عرفان 
+-->
+<meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport">
+<link rel="icon" type="image/png" href="https://bayanbox.ir/view/2711053649712395945/logo.png">
+<meta name="google-site-verification" content="10dZg8O_BEq3Z9JwOcVkZQQ0e2RWlh7hvxmkcqJ5hm0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<head:style></head:style>
+<head:script></head:script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G66HCN4846"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	
+	gtag('config', 'G-G66HCN4846');
+	
+</script>
+<script>
+	//function menu slide
+	function aoh_slide(){
+		var el = document.getElementById('aoh-slide-ul');
+		var el_height = el.style.maxHeight;
+		if (el_height == '0px' || el_height == '0' || el_height == 0 ){
+			el.style.maxHeight = "700px";
+			$('#back-full').css('visibility','visible');
+		}
+		else {
+			el.style.maxHeight = "0px";
+			$('#back-full').css('visibility','hidden');
+		}
+
+	}
+	$(document).on('click touchstart', function(event) {
+  if (!$(event.target).closest('#aoh-slide-ul').length) {
+		var el = $('#aoh-slide-ul');
+		var el_height = el.css('max-height');
+		if(!(el_height == '0px' || el_height == '0' || el_height == 0)){
+			el.css('max-height', 0);
+			$('#back-full').css('visibility','hidden');
+		}
+  }
+});
+	// function ready document
+	function docReady(fn) {
+    // see if DOM is already available
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(fn, 1);
+    } else {
+    	document.addEventListener("DOMContentLoaded", fn);
+    }
+}  
+	// function for masonary style
+if((location.protocol + '//' + location.host + location.pathname) == 'http://artofhumans.blog.ir/category/%D9%87%D9%86%D8%B1/'){
+	docReady(function(){
+    document.getElementById('block-contain').classList.add("masonary-style")
+	});
+	//use window load instead of document ready because of heights of pictures that may not be loaded and effect the total height
+	window.addEventListener("load", function() { 
+    // Your code goes here!
+    const numCols = 2
+    var colHeights = Array(numCols).fill(0)
+    const container = document.getElementById('block-contain')
+    Array.from(container.children).forEach((child, i) => {
+    	const order = i % numCols
+    	child.style.order = order
+    	colHeights[order] += parseFloat(child.clientHeight)
+    })
+    container.style.height = Math.max(...colHeights) +  70 + 'px'
+    delete colHeights,container
+	});
+}
+</script>
+<script>
+    $( document ).ready(function() {
+  			$('#aoh-menu-cat-modal').on('click', function() { $("#aoh-cat-modal").show(); });
+        $('#modal-exit').on('click', function() { $("#aoh-cat-modal").hide(); });
+		
+    });
+</script>
+</head>
+<body>
+<box:post_detail>
+<script type="application/ld+json">
+		{ 
+			"@context": "https://schema.org", 
+			"@type": "BlogPosting",
+			"headline": "(*post_title*)",
+			"alternativeHeadline": "این مقاله همچنین راجع به <box:post_tags><view:post_tags>(*tag_name*) </view:post_tags></box:post_tags> می باشد",
+			"image": "(*post_image*)",
+			"editor": "Art World", 
+			"genre":"<box:post_categories><view:post_categories>(*category_name*) </view:post_categories></box:post_categories>", 
+			"keywords": "<box:post_tags><view:post_tags>(*tag_name*) </view:post_tags></box:post_tags>", 
+			"publisher": "Artofhumans.blog.ir",
+			"url": "(*post_link*)",
+			"datePublished": "(*post_date*)",
+			"description":  "می خواهیم به هنرمندان در پیدا کردن جایگاه خود در دنیای بزرگ هنر کمک کنیم",
+			"author": {
+			"@type": "Person",
+			"name": "(*post_author*)"
+		},
+		"@id": "#blogpost"
+	}
+</script>
+</box:post_detail>
+
+<div id="wrp">
+	<div class="header">
+		<div style="position: absolute; top: 0; height: 100%; left: 0; width: 100%; background: #2e2e2e78;"></div>
+		<h1 style="position: relative;"><a href="(*blog_link*)">(*blog_title*)</a></h1>
+		<p style="position: relative;">(*blog_short_description*)</p>
+	</div>
+
+	<div style=" " id="back-full"></div>
+	<div class="menu">
+		<span onclick="aoh_slide()" styleu00022text-align:centeru00022="">
+			<i></i>
+		</span>
+		<box:menu>
+			<ul id="aoh-slide-ul">
+				<view:menu>
+					<li><a href="(*menu_item_link*)" class="(*menu_item_selected*)">(*menu_item_title*)</a></li>
+				</view:menu>
+				<a class="mobile-visible" id="aoh-menu-cat-modal">لیست دسته بندی ها</a>
+				<div id="menu-search">
+					<form style="width: 100%;font-size:9pt;font-family:Tahoma;direction:rtl;margin: 0;display: flex;" target="_new" method="get" action="http://www.google.com/search">
+						<input name="q" style="border: 1px dotted #ddd;font-family:Tahoma;width: 75%;background: white;height: 30px;box-sizing: border-box;">
+						<input type="submit" name="btnG" value="جستجو" style="font-family:Tahoma;padding: 6px 8px;background: white;border: 1px dotted #ddd;width: 100px;margin: 0;margin-right: 5%;height: 30px;cursor:pointer;">
+						<input value="http://artofhumans.blog.ir/" type="hidden" name="sitesearch" checked>
+						<input type="hidden" name="ie" value="UTF-8"><input type="hidden" name="oe" value="UTF-8">
+					</form>
+				</div>
+				<div class="menu-pic mobile-visible">
+					<a href="http://artofhumans.blog.ir/category/%D9%87%D9%86%D8%B1/%D9%86%D9%82%D8%A7%D8%B4%DB%8C/%D8%A2%D8%A8%D8%B1%D9%86%DA%AF/">
+						<img src="https://bayanbox.ir/view/2646563716161805508/post2.jpg">
+						<p>نقاشی آبرنگ</p>
+					</a>
+				</div>
+				<div class="menu-pic mobile-visible">
+					<a href="http://artofhumans.blog.ir/category/%D9%87%D9%86%D8%B1/%D9%86%D9%82%D8%A7%D8%B4%DB%8C/%D9%BE%D8%A7%D8%B3%D8%AA%D9%84/">
+						<img src="https://bayanbox.ir/view/922950571922117236/pastel-menu.jpg">
+						<p>نقاشی پاستل</p>
+					</a>
+				</div>				
+			</ul>
+		</box:menu>
+	</div>
+	<div id="aoh-cat-modal" class="aoh-modal-main" style="display: none">
+             <div>
+              <button id="modal-exit">✕</button>
+							<box:categories>
+								<div class="left-back">
+									<div class="title-left">
+										موضوعات
+									</div>
+									<div class="left-input">
+										<ul>
+											<view:categories>
+												<li>
+													<a href="(*category_link*)" class="(*category_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*category_name*) ((*category_post_count*))</div></a>
+												</li>
+												<check:if category_children>
+													<div class="category-children">
+														<view:category_children></view:category_children>
+													</div>
+												</check:if>
+											</view:categories>
+										</ul>
+									</div>
+								</div>
+							</box:categories>
+              </div>
+     </div>
+	<div class="main-block">
+		<div class="block-post">
+			<box:post_detail>
+				<div class="post">
+					<div class="post-detail-top">
+						<div class="post-author-avatar">
+							<img src="(*post_author_avatar*)">
+						</div>
+						<div class="post-detail-1">
+							<check:if post_author>
+								<span class="post-author"><i class="fa fa-user fa-lg"></i> (*post_author*)</span>
+							</check:if>
+							<br>
+							<check:if post_date>
+								<span class="post_date">
+									<i class="fa fa-calendar-o fa-lg"></i> (*post_date format="%A %e %B %y"*)
+								</span>
+							</check:if>
+						</div>
+						<div class="post-detail-left">
+							<ul>
+								<box:post_rating>
+									<li>
+										<span class="rate-box (*user_rated*)">
+											<span class="rate-button-box rate-up (*user_rated_up*)">
+												<a class="rate-button" href="(*rate_up_link*)" rel="nofollow" title="like">(*up_rates*) <i class="fa fa-heart-o fa-lg"></i></a>
+											</span>
+										</span>
+									</li>
+								</box:post_rating>
+								<check:if post_has_comments_section>
+									<li>
+										<span class="post-cm">
+											<a href="(*post_link*)#comments">
+												(*post_comment_count*) <i class="fa fa-comments-o fa-lg"></i>
+											</a>
+										</span>
+									</li>
+								</check:if>
+							</ul>
+						</div>
+					</div>
+					<div class="post-title-back">
+						<div class="post-title">
+							<h2><a href="(*post_link*)">(*post_title*)</a></h2>
+						</div>
+					</div>
+					<section itemscope="" itemtype="http://schema.org/BlogPosting" itemid="#blogpost">
+						<div class="post-matn" itemprop="articleBody">
+							(*post_full_content*)
+						</div>
+					</section>
+				</div>
+				<box:post_tags>
+					<div class="post-tags">
+						<div class="tag-back">
+							<div class="post-tags-title">
+								کلمات کلیدی :
+							</div>
+							<view:post_tags>
+								<span class="tagss">
+									<a href="(*tag_link*)" class="(*tag_selected*)">(*tag_name*)</a>
+								</span>
+							</view:post_tags>
+						</div>
+					</div>
+				</box:post_tags>
+				<box:post_comments>
+					<a name="comments"></a>
+					<div class="comment-count-box">
+						<a class="comment_count" href="(*post_link*)#comments">نظرات  ((*post_comment_count*))</a>
+					</div>
+					<view:post_comments>
+						<a name="comment-(*comment_id*)"></a>
+						<div class="cm-main">
+							<div class="cm-avatar">
+								<img class="cm-av" src="(*comment_avatar*)">
+							</div>
+							<div class="cm-body">
+								<div class="comment-details">
+									<span class="cm-date"><a href="(*comment_link*)">(*comment_date format="%A %e %B %y , %H:%M"*)</a></span>
+									<span class="cm-name">(*comment_fullname*)
+										<check:if comment_website>
+											<a href="(*comment_website*)" target="_blank">
+												<i class="fa fa-external-link fa-lg"></i>
+											</a>
+										</check:if>
+									</span>
+								</div>
+								<div class="comment-matn">(*comment_body*)</div>
+								<check:if comment_reply>
+									<div class="cm-reply-main">
+										<img class="reply-av" src="(*post_author_avatar*)">
+										<div class="comment-reply">
+											(*comment_reply*)
+										</div>
+									</div>
+								</check:if>
+							</div>
+						</div>
+					</view:post_comments>
+					<check:if comment_add_form>
+						<a name="send_comment"></a>
+						<div class="comment-add-form">(*comment_add_form*)</div>
+					</check:if>
+				</box:post_comments>
+			</box:post_detail>
+			
+			<box:page_detail>
+				<div class="post">
+					<div class="post-title-back">
+						<div class="post-title">
+							<h2><a href="(*page_link*)">(*page_title*)</a></h2>
+						</div>
+					</div>
+					<div class="post-matn">
+						(*page_content*)
+					</div>
+				</div>
+				<box:page_comments>
+					<a name="comments"></a>
+					<div class="comment-count-box">
+						<a class="comment_count" href="(*page_link*)#comments">نظرات  ((*page_comment_count*))</a>
+					</div>
+					<view:page_comments>
+						<a name="comment-(*comment_id*)"></a>
+						<div class="cm-main">
+							<div class="cm-avatar">
+								<img class="cm-av" src="(*comment_avatar*)">
+							</div>
+							<div class="cm-body">
+								<div class="comment-details">
+									<span class="cm-date"><a href="(*comment_link*)">(*comment_date format="%d %B %H:%M"*)</a></span>
+									<span class="cm-name">(*comment_fullname*)
+										<check:if comment_website>
+											<a href="(*comment_website*)" target="_blank">
+												<i class="fa fa-external-link fa-lg"></i>
+											</a>
+										</check:if>
+									</span>
+								</div>
+								<div class="comment-matn">(*comment_body*)</div>
+								<check:if comment_reply>
+									<div class="cm-reply-main">
+										<div class="comment-reply-page">
+											(*comment_reply*)
+										</div>
+									</div>
+								</check:if>
+							</div>
+						</div>
+					</view:page_comments>
+				</box:page_comments>
+				<check:if comment_add_form>
+					<a name="send_comment"></a>
+					<div class="comment-add-form">(*comment_add_form*)</div>
+				</check:if>
+			</box:page_detail>
+			
+			<box:post_list>
+				<div class="block-post-list" id="block-contain">
+					<view:post_list>
+						<div class="post">
+							<div class="post-detail-top">
+								<div class="post-author-avatar">
+									<img src="(*post_author_avatar*)">
+								</div>
+								<div class="post-detail-1">
+									<check:if post_author>
+										<span class="post-author"><i class="fa fa-user fa-lg"></i> (*post_author*)</span>
+									</check:if>
+									<br>
+									<check:if post_date>
+										<span class="post_date">
+											<i class="fa fa-calendar-o fa-lg"></i> (*post_date format="%A %e %B %y"*)
+										</span>
+									</check:if>
+								</div>
+								<div class="post-detail-left">
+									<ul>
+										<box:post_rating>
+											<li>
+												<span class="rate-box (*user_rated*)">
+													<span class="rate-button-box rate-up (*user_rated_up*)">
+														<a class="rate-button" href="(*rate_up_link*)" rel="nofollow" title="like">(*up_rates*) <i class="fa fa-heart-o fa-lg"></i></a>
+													</span>
+												</span>
+											</li>
+										</box:post_rating>
+										<check:if post_has_comments_section>
+											<li>
+												<span class="post-cm">
+													<a href="(*post_link*)#comments">
+														(*post_comment_count*) <i class="fa fa-comments-o fa-lg"></i>
+													</a>
+												</span>
+											</li>
+										</check:if>
+									</ul>
+								</div>
+							</div>
+							<div class="post-title-back">
+								<div class="post-title">
+									<h2><a href="(*post_link*)">(*post_title*)</a></h2>
+								</div>
+							</div>
+							<div class="post-matn">
+								(*post_summary*)
+								<check:if post_has_read_more>
+									<div class="read-more">
+										<a href="(*post_link*)">ادامه مطلب</a>
+									</div>
+								</check:if>
+							</div>
+						</div>
+					</view:post_list>
+				</div>
+			</box:post_list>
+			<box:pagination>
+				<div class="pagingation">
+					<check:if page_first>
+						<a href="(*page_first*)" class="pagefirst"><i class="fa fa-angle-double-right fa-lg"></i></a>
+					</check:if>
+					<check:if page_prev>
+						<a href="(*page_prev*)" class="pagePrev"><i class="fa fa-angle-right fa-lg"></i></a>
+					</check:if>
+					<div class="pagesList">
+						<view:pages spec="3,2,2,2,3,2">
+							<check:if page_num>
+								<a href="(*page_link*)" class="(*page_current*)">(*page_num*)</a>
+							</check:if>
+							<check:if not page_num>
+								<span class="spacer">. . .</span>
+							</check:if>
+						</view:pages>
+					</div>
+					<check:if page_next>
+						<a href="(*page_next*)" class="pageNext"><i class="fa fa-angle-left fa-lg"></i></a>
+					</check:if>
+					<check:if page_last>
+						<a href="(*page_last*)" class="pagelast"><i class="fa fa-angle-double-left fa-lg"></i></a>
+					</check:if>
+				</div>
+			</box:pagination>
+		</div>
+		<div class="left">
+			
+			<box:blog_info>
+				<div class="left-back">
+					<div class="about-me">
+						<check:if blog_image>
+							<img class="blog-image" src="(*blog_image*)">
+						</check:if>
+						<check:if blog_description>
+							<div class="description-web">(*blog_description*)</div>
+						</check:if>
+					</div>
+				</div>
+			</box:blog_info>
+			
+			(*follow_box*)
+			
+			
+			<box:recent_comments max="7">
+				<div class="left-back">
+					<div class="title-left">
+						آخرین نظرات
+					</div>
+					<div class="left-input">
+						<view:recent_comments>
+							<div class="recent-comment">
+								<img class="recent-comment-av-img" src="(*comment_avatar*)">
+								<a href="(*comment_link*)"><div class="cm-matnn">
+									<span>(*comment_body_text max="50"*)</span><br>
+									</div></a>
+							</div>
+						</view:recent_comments>
+					</div>
+				</div>
+			</box:recent_comments>
+			
+			<box:post_list category="هنر/آموزشی" max="5">
+				<div class="left-back post-list-sty1">
+					<div class="title-left">
+						آموزشی
+					</div>
+					<div class="left-input">						
+						<view:post_list>
+							<a href="(*post_link*)">	
+								<div>
+									<img src="(*post_image*)">
+								</div>
+								<h5>(*post_title*)</h5>			
+							</a>
+						</view:post_list>						
+					</div>
+				</div>
+			</box:post_list>
+			
+			<box:recent_posts max="10">
+				<div class="left-back">
+					<div class="title-left">
+						آخرین مطالب
+					</div>
+					<div class="left-input">
+						<ul>
+							<view:recent_posts>
+								<li>									
+									<a href="(*post_link*)" class="(*post_selected*)"><div class="rate--post"><img class="last-posts-img" src="(*post_image*)" onerror="this.src='https://bayanbox.ir/view/8098597290276141502/last-broken-icon.png'"> (*post_title*)</div></a>
+								</li>
+							</view:recent_posts>
+						</ul>
+					</div>
+				</div>
+			</box:recent_posts>
+			
+			<box:post_list category="هنر/نقاشی/آبرنگ" max="4">
+				<div class="left-back post-list-sty1">
+					<div class="title-left">
+						آبرنگ
+					</div>
+					<div class="left-input">						
+						<view:post_list>
+							<a href="(*post_link*)">
+								<div>
+									<img src="(*post_image*)">
+								</div>
+								<h5>(*post_title*)</h5>			
+							</a>
+						</view:post_list>						
+					</div>
+				</div>
+			</box:post_list>
+			
+			<box:post_list flag="mobile">
+				<div class="left-back">
+					<div class="title-left">
+						پیام های کوتاه
+					</div>
+					<div class="left-input">
+						<ul>
+							<view:post_list>
+								<li>
+									<a href="(*post_link*)" class="(*post_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*post_title*)</div></a>
+								</li>
+							</view:post_list>
+						</ul>
+					</div>
+				</div>
+			</box:post_list>
+			
+			
+			<box:popular_posts>
+				<div class="left-back">
+					<div class="title-left">
+						محبوب ترین مطالب
+					</div>
+					<div class="left-input">
+						<ul>
+							<view:popular_posts>
+								<li>
+									<a href="(*post_link*)" class="(*post_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*post_title*)</div></a>
+								</li>
+							</view:popular_posts>
+						</ul>
+					</div>
+				</div>
+			</box:popular_posts>
+			
+			<box:most_visited_posts>
+				<div class="left-back">
+					<div class="title-left">
+						پربیننده ترین مطالب
+					</div>
+					<div class="left-input">
+						<ul>
+							<view:most_visited_posts>
+								<li>
+									<a href="(*post_link*)" class="(*post_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*post_title*)</div></a>
+								</li>
+							</view:most_visited_posts>
+						</ul>
+					</div>
+				</div>
+			</box:most_visited_posts>
+			
+			<box:most_commented_posts>
+				<div class="left-back">
+					<div class="title-left">
+						مطالب پر بحث تر
+					</div>
+					<div class="left-input">
+						<ul>
+							<view:most_commented_posts>
+								<li>
+									<a href="(*post_link*)" class="(*post_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*post_title*)</div></a>
+								</li>
+							</view:most_commented_posts>
+						</ul>
+					</div>
+				</div>
+			</box:most_commented_posts>
+			
+			<!--<box:archive>
+<div class="left-back">
+<div class="title-left">
+آرشیو مطالب
+</div>
+<div class="left-input">
+<div class="archive">
+<ul>
+<view:archive>
+<li>
+<a href="(*link_url*)" class="(*archive_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*link_name*)  ( (*link_count*) )</div></a>
+</li>
+</view:archive>
+</ul>
+</div>
+</div>
+</div>
+</box:archive>-->
+			
+			<box:authors>
+				<div class="left-back">
+					<div class="title-left">
+						نویسندگان
+					</div>
+					<div class="left-input">
+						<ul>
+							<view:authors>
+								<li>
+									<a href="(*author_link*)" class="(*author_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*author_name*)  ( (*author_post_count*) )</div></a>
+								</li>
+							</view:authors>
+						</ul>
+					</div>
+				</div>
+			</box:authors>
+			
+			<box:categories>
+				<div class="left-back">
+					<div class="title-left">
+						موضوعات
+					</div>
+					<div class="left-input">
+						<ul>
+							<view:categories>
+								<li>
+									<a href="(*category_link*)" class="(*category_selected*)"><div class="rate--post"><i class="fa fa-angle-left fa-lg"></i> (*category_name*) ((*category_post_count*))</div></a>
+								</li>
+								<check:if category_children>
+									<div class="category-children">
+										<view:category_children></view:category_children>
+									</div>
+								</check:if>
+							</view:categories>
+						</ul>
+					</div>
+				</div>
+			</box:categories>
+			
+			<box:tag_cloud max="14">
+				<div class="left-back">
+					<div class="title-left">
+						کلمات کلیدی
+					</div>
+					<div class="left-input">
+						<view:tag_cloud>
+							<span class="tagss">
+								<a href="(*tag_link*)" class="(*tag_selected*)">(*tag_name*)</a>
+							</span>
+						</view:tag_cloud>
+					</div>
+				</div>
+			</box:tag_cloud>
+			
+		</div>
+	</div><!--main-block-->
+	
+	<div class="aoh-footer" style="">
+		<div>
+			<h1><a href="/" style="
+														 color: white;
+														 ">دنیای هنر</a></h1>
+			<div class="">
+				<box:menu>
+					<ul>
+						<view:menu>
+							<li><a style="color: white;" href="(*menu_item_link*)" class="(*menu_item_selected*)">(*menu_item_title*)</a></li>
+						</view:menu>
+					</ul>
+				</box:menu>
+			</div>
+		</div>
+	</div>
+	<!--Foooter-->
+	<div class="fotter">
+		Copyright © 2021 Art Of Humans bolg.ir Iran . All rights reserved.			
+		<span class="bayan">				
+			<a href="http://bayan.ir"></a>
+		</span>
+	</div>
+	<!--Foooter-->
+</div>
+<!--wrp-->
+</body></html>

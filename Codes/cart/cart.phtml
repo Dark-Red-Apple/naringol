@@ -1,0 +1,325 @@
+<style>
+    .netweb-mini {
+        width: 27%;
+        height: 100%;
+        background: white;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        /*position: absolute;*/
+        z-index: 1000000;
+        right: -2000px;
+        position: fixed;
+        padding: 10px;
+        top:0;
+        bottom:0;
+        height: 100%;
+    }
+
+    .netweb-mini li {
+        padding: 20px 0;
+        border-bottom: 2px solid #f4f4f4;
+        float: left;
+        width: 100%;
+        position: relative;
+    }
+
+    .netweb-mini .product-image {
+        float: left;
+        border: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    .netweb-mini .product-image {
+        float: right;
+        width: 74px;
+    }
+
+    .netweb-mini .product-image img {
+        border: 1px solid rgba(204, 204, 204, 0.5);
+        padding: 1px;
+        max-width: 100%;
+    }
+
+    .netweb-mini .product-image .qty-count {
+        position: absolute;
+        font-size: 10px;
+        display: none;
+        top: 1px;
+        right: 1px;
+        height: 12px;
+        line-height: 12px;
+        padding: 0 2px;
+        background: #ffffff;
+    }
+
+    .netweb-mini .product-details {
+        float: left;
+        text-align: left;
+        padding: 0 15px 0 0;
+        margin: 0;
+        position: relative;
+        width: 74.66667%;
+
+    }
+
+    .netweb-mini .product-details {
+        float: right;
+        text-align: right;
+    }
+
+    .netweb-mini .product-details p.product-name {
+        line-height: normal;
+        margin: 0 0 5px;
+        padding: 0;
+        font-size: 12px;
+        text-transform: uppercase;
+        height: 38px;
+    }
+
+    .netweb-mini .product-details span.price {
+        display: inline-block;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .netweb-mini .updateqty {
+        padding: 1px 8px;
+        border: 1px solid #c2c2c2;
+        float: right;
+        display: inline-block;
+    }
+
+    .netweb-mini .updateqty .plus {
+        line-height: 0;
+    }
+
+    .netweb-mini .items.clearfix {
+        float: left;
+    }
+
+    .netweb-mini .access {
+        float: right;
+    }
+
+    .netweb-mini .access a {
+        margin: 0 13px;
+        vertical-align: bottom;
+        line-height: 28px;
+    }
+
+    #itemss {
+        float: right;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .netweb-mini .updateqty .num-net {
+        padding-right: 3px;
+    }
+
+    .netweb-mini .subtotal {
+        padding: 15px;
+    }
+
+    .netweb-mini .subtotal .price {
+        float: left;
+
+    }
+
+    .netweb-mini .product-image {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .netweb-mini .typo-ajax-checkout.clearfix {
+        text-align: center;
+        /*padding: 0 20px;*/
+    }
+
+    .netweb-mini a.button.view-cart {
+        margin: 0 auto;
+        width: 100%;
+        height: 50px;
+    	line-height: 50px;
+   		font-size: 18px;
+    	background: #39d9b9;
+    	border: none !important;
+    }
+    #nar-mini-items::-webkit-scrollbar {
+ 	 width: 5px;
+	}
+
+	/* Track */
+	#nar-mini-items::-webkit-scrollbar-track {
+	  /*box-shadow: inset 0 0 5px grey; */
+	  border-radius: 10px;
+	}
+	 
+	/* Handle */
+	#nar-mini-items::-webkit-scrollbar-thumb {
+	  background: #b0b0b0; 
+	  border-radius: 10px;
+	}
+
+	/* Handle on hover */
+	#nar-mini-items::-webkit-scrollbar-thumb:hover {
+	  background: grey; 
+	}
+
+
+    @media (max-width: 767px) {
+        .netweb-mini {
+            width: 94%;
+            top: 0;
+        }
+    }
+
+   @media (max-width: 1199px) and (min-width: 768px) {
+        .netweb-mini {
+            width: 44%;
+        }
+    }
+</style>
+<?php
+$_items = $this->getRecentItems($_cartQty);
+?>
+<?php
+$enable = Mage::getStoreConfig('ajaxcart/ajaxcart_config/enable_ajaxcart');
+?>
+<?php
+$_cartQty = $this->getSummaryCount();
+if ($_cartQty != 0) {
+    $_totalQty = $_cartQty;
+} else {
+    $_totalQty = 0;
+}
+$_items = $this->getRecentItems($_cartQty);
+?>
+<div class="typo-icon-ajaxcart" id="show_bag">
+    <div class="typo-cart-label">
+            <span class="icon-cart"><i class="icon-handbag icons"></i>
+                <span id="gh-total-qty" class="qty-cart">
+                    <?php echo $_totalQty ?>
+                </span>
+            </span>
+        <span class="print">
+               <span class="items"><span
+                           class="qty-cart"><?php echo $_totalQty ?></span> <span><?php echo $this->__('item(s)') ?></span></span>
+               <?php /* <span>-</span> <span><?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?></span> */ ?>
+            </span>
+        <span class="icon-dropdown"><i class="fa fa-angle-down"></i></span>
+    </div>
+</div>
+<div id="netweb-cart">
+    <!--    <span id="show_bag"  style="cursor: pointer;">Bag</span>-->
+    <div class="netweb-mini show-cart exclude" id="netweb-mini">
+        <div id="keys" style="border: none;">
+            <?php /*<div style="width: 50%;float: right;text-align: right;">
+                <i class="fa fa-angle-right"></i>
+                <a href="<?= Mage::getUrl('checkout/cart'); ?>"
+                   style="font-size: 12px;"><?= $this->__('مشاهده سبد خرید') ?></a>
+
+            </div> */ ?>
+            <div style="width: 50%;float: left;text-align: left;">
+                <span id="continue_shopping"
+                      style="font-size: 25px;cursor:pointer">✕</span>
+                <!--<i class="fa fa-angle-left"></i>-->
+            </div>
+        </div>
+        <br><br>
+        <?php if($_cartQty): ?>
+        <div id="nar-mini-items" style="height: 45%; overflow-y: scroll;width: 100%;">
+            <div>
+                <ul class="clearfix">
+                    <?php foreach ($_items as $_item): ?>
+                        <?php echo $this->getItemHtml($_item) ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+        </div>
+        <p class="subtotal">
+            <?php if ($this->canApplyMsrp()): ?>
+                <span
+                        class="map-cart-sidebar-total"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></span>
+            <?php else: ?>
+                <span
+                        class="title"><?php echo $this->__('Sub Total') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+                <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
+                    <br/>(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?><?php echo Mage::helper('tax')->getIncExcText(true) ?>)
+                <?php endif; ?>
+            <?php endif; ?>
+        </p>
+        <div style="margin-bottom: 20px;" class="typo-ajax-checkout clearfix">
+            <a href="<?php echo $this->getUrl('checkout/cart', Mage::helper('typologancee')->checkSSL()) ?>"
+               class="button view-cart">
+                <span><?php echo $this->__('View cart & complete') ?></span>
+            </a>
+            <a style="display: none" class="button view-checkout"
+               href="<?php echo $this->getCheckoutUrl() ?>"><span><?php echo $this->__('Checkout') ?></span></a>
+        </div>
+        <?php else: ?>
+        <div style="text-align: center;">
+        	<img src="https://naringol.com/media/wysiwyg/basket-empty-icon.png" style="height: 200px; margin-bottom: 20px;" />
+        	<h4 style=" margin-bottom: 20px;"><?php echo $this->__('Your shopping basket is empty'); ?></h4>
+        	<p style=" margin-bottom: 20px;"><?php echo $this->__('You have not chosen any products'); ?></p>
+        </div>
+    	<?php endif ?> 
+    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('mini-card-pic')->toHtml(); ?>
+    </div>
+</div>
+<script>
+
+
+    jQuery('.typo-maincart').appendTo('.cart-sticky');
+    //jQuery(".top-seach").after(jQuery('.typo-maincart'));
+    jQuery(".main-container").before(jQuery('.netweb-mini'));
+    jQuery("#show_bag").click(function () {
+        if (jQuery("#netweb-mini").hasClass('show-cart')) {
+            jQuery("#netweb-mini").css({"left": "2000px"}).animate({"right": "0px"}, "slow");
+            jQuery("#netweb-mini").removeClass('show-cart');
+            jQuery(".main-container").addClass('overlay1');
+            jQuery(".footer-container").addClass('overlay1');
+            jQuery(".footer-container").addClass('footer-cart');
+            jQuery("#yerd").css('height', '100%');
+            jQuery("#yerd").css('opacity', '1');
+        } else {
+            jQuery("#netweb-mini").css({"left": "2000px"}).animate({"right": "-2000px"}, "slow");
+            jQuery("#netweb-mini").addClass('show-cart');
+            jQuery(".main-container").removeClass('overlay1');
+            jQuery(".footer-container").removeClass('footer-cart');
+            jQuery(".footer-container").removeClass('overlay1');
+            jQuery("#yerd").css('height', 'unset');
+            jQuery("#yerd").css('opacity', '0');
+        }
+
+    });
+
+    jQuery("#continue_shopping").click(function () {
+        if (!jQuery("#netweb-mini").hasClass('show-cart')) {
+            jQuery("#netweb-mini").css({"left": "2000px"}).animate({"right": "-2000px"}, "slow");
+            jQuery("#netweb-mini").addClass('show-cart');
+            jQuery(".main-container").removeClass('overlay1');
+            jQuery(".footer-container").removeClass('footer-cart');
+            jQuery(".footer-container").removeClass('overlay1');
+            jQuery("#yerd").css('height', 'unset');
+            jQuery("#yerd").css('opacity', '0');
+        }
+    })
+
+    jQuery(document).mouseup(function (e) {
+        var container = jQuery(".netweb-mini");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            if (!jQuery("#netweb-mini").hasClass('show-cart')) {
+                jQuery("#netweb-mini").css({"left": "2000px"}).animate({"right": "-2000px"}, "slow");
+                jQuery("#netweb-mini").addClass('show-cart');
+                jQuery(".main-container").removeClass('overlay1');
+                jQuery(".footer-container").removeClass('footer-cart');
+                jQuery(".footer-container").removeClass('overlay1');
+                jQuery("#yerd").css('height', 'unset');
+                jQuery("#yerd").css('opacity', '0');
+            }
+        }
+
+    });
+</script>

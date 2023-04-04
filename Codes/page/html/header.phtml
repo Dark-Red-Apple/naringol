@@ -1,0 +1,2124 @@
+<?php
+/**
+ * ┌┬┐┬ ┬┌─┐┌─┐┌─┐┌┬┐┌─┐┬─┐┌─┐┌─┐ ┌─┐┌─┐┌┬┐
+ *  │ └┬┘├─┘│ │└─┐ │ │ │├┬┘├┤ └─┐ │  │ ││││
+ *  ┴  ┴ ┴  └─┘└─┘ ┴ └─┘┴└─└─┘└─┘o└─┘└─┘┴ ┴
+ *
+ * @copyright    Copyright (C) 2015 typostores.com. All Rights Reserved.
+ *
+ */
+?>
+<?php
+$theme = $this->helper('typologancee');
+$compareHeader = $theme->getCfg('header/compare');
+$headerLayout = $theme->getCfg('header/layout');
+$stickyEnable = $theme->getCfg('header/sticky_enable');
+$mobileCart = $theme->getCfg('header/hide_on_mobile');
+$logo = Mage::getStoreConfig('typologancee/header/logo_upload');
+$logo_retina = Mage::getStoreConfig('typologancee/header/logo_retina_upload');
+$logo_sticky = $theme->getCfg('header/sticky_logo');
+$mediaUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+$class = $mobileCart ? 'hidden-xs' : '';
+$logoAlt = Mage::getStoreConfig('typologancee/header/logo_alt');
+include_once MAGENTO_ROOT . '/app/Mage.php';
+umask(0);
+Mage::app('default');
+Mage::getSingleton('core/session', array('name' => 'frontend'));
+$sessionCustomer = Mage::getSingleton("customer/session");
+?>
+<?php
+$header_class = "";
+switch ($headerLayout) {
+    case 'layout1':
+        $header_class = "header-layout-1";
+        break;
+    case 'layout2':
+        $header_class = "header-layout-2";
+        break;
+    case 'layout3':
+        $header_class = "header-layout-3";
+        break;
+    case 'layout4':
+        $header_class = "header-layout-4";
+        break;
+    case 'layout5':
+        $header_class = "header-layout-5";
+        break;
+    case 'layout6':
+        $header_class = "header-layout-6";
+        break;
+    case 'layout7':
+        $header_class = "header-layout-7";
+        break;
+    case 'layout8':
+        $header_class = "header-layout-8";
+        break;
+    case 'sb-layout1':
+        $header_class = "vheader-layout-1";
+        break;
+    case 'sb-layout2':
+        $header_class = "vheader-layout-2";
+        break;
+    default:
+        $header_class = "header-layout-1";
+        break;
+}
+?>
+<?php if ($compareHeader) : ?>
+    <div class="compare-topbar block-top-compare">
+        <?php echo $this->getChildHtml('compareajax') ?>
+    </div>
+<?php endif; ?>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KLV383L');</script>
+<!-- End Google Tag Manager -->
+<script>
+    /*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-104606218-1', 'auto');
+    ga('create', 'UA-139390236-1', 'auto',{'name':'user2'});
+    ga('send', 'pageview');
+    ga('user2.send', 'pageview');*/
+</script>
+
+<script type="text/javascript" async>
+    (function(){
+        var now = new Date();
+        var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate() +
+            "0" + now.getHours();
+
+        var head = document.getElementsByTagName("head")[0];
+
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://app.najva.com/static/css/local-messaging.css" + "?v=" + version;
+        head.appendChild(link);
+
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.async = true;
+        script.src = "https://app.najva.com/static/js/scripts/naringol-2019-65c9cf39-4877-44a9-8ad2-f0852439e7da.js" + "?v=" + version;
+        head.appendChild(script);
+    })()
+</script>
+<script>
+jQuery(document).ready(function () {
+	jQuery('.button-gradient').one('mouseout', function () { jQuery(this).addClass('gradient-out'); });
+});
+</script>
+<header class="header-container <?php echo $header_class; ?>">
+    <?php if ($headerLayout == "layout1"): ?>
+        <!--Begin Header Layout 1-->
+        <div class="header">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('menu_top_notification')->toHtml(); ?>
+
+            <div class="header-content">
+                <div class="container">
+                    <div class="header-inner">
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-4 col-md-5 col-lg-5">
+                                <div class="top-seach">
+                                    <div class="menu-bar-btn hidden-sm hidden-md hidden-lg">
+                                        <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                                    </div>
+                                    <div class="quick-search">
+                                        <?php echo $this->getChildHtml('topSearch') ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+                                <div class="logo-home">
+                                    <?php if ($this->getIsHomePage()): ?>
+                                        <h1 class="logo">
+                                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                                <strong><?php echo $logoAlt ?></strong>
+                                                <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                            </a>
+                                        </h1>
+                                    <?php else: ?>
+                                        <div class="logo">
+                                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                                <strong><?php echo $logoAlt ?></strong>
+                                                <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                            </a>
+                                        </div>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-5 col-md-5 col-lg-5">
+                                <div class="typo-top-cart cart-sticky <?php echo $class; ?>" style="display: inline-table;    padding: 29px 0;">
+                                   <!-- <a href="https://naringol.com/sales/guest/form/" class="p-visible-desktop peygiri-menue" style=" margin-left: 20px; color: #52c3c6;text-decoration: underline; text-underline-position: under; cursor: pointer;">پیگیری خرید</a> -->
+                                    <div class="typo-maincart" style=  "display: inline; margin-left: 3%;">
+                                        <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                    </div>
+                                    <?php /*<div class="inner-top-bar" style="   display: inline;">
+                                        <?php if ($this->getChildHtml('currency') || $this->getChildHtml('store_language')) : ?>
+                                            <div class="welcome-user login-topbar hidden-xs hidden-sm hidden-md"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></div>
+                                        <?php endif; ?>
+                                        <!--                                    --><?php //if ($sessionCustomer->isLoggedIn()) : ?>
+                                        <!--                                        --><?php //echo $this->getChildHtml('register_login') ?>
+                                        <!--                                            --><?php //else: ?>
+                                        <!--                                        --><?php //echo $this->getChildHtml('register_login') ?>
+                                        <!--                                            --><?php //endif; ?>
+                                        <?php echo $this->getChildHtml('register_login') ?>
+                                    </div>        <!-- <div id="notification"></div> --> */ ?>
+									<div class="settings-topbar col-xs-2 hidden-xs" style = "float:left; text-align: center;"> 
+										<div class="settings">
+											<i class="icon-user" style = "font-size:26px;"></i>
+											<div class="settings-inner">
+												<div class="setting-content">
+													<?php if ($this->getChildHtml('store_language')) : ?>
+														<div class="setting-language">
+															<div class="title"><?php echo $this->__('Select language') ?></div>
+															<?php echo $this->getChildHtml('store_language'); ?>
+														</div>
+													<?php endif; ?>
+													<?php if ($this->getChildHtml('currency')) : ?>
+														<div class="setting-currency">
+															<div class="title"><?php echo $this->__('Select currency') ?></div>
+															<?php echo $this->getChildHtml('currency') ?>
+														</div>
+													<?php endif; ?>
+													<div class="setting-option">
+														<ul>
+															<li>
+																<?php if ($sessionCustomer->isLoggedIn()) : ?>
+																	<a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+																<?php else: ?>
+																	<a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+																<?php endif; ?>
+															</li>
+															<?php if ($sessionCustomer->isLoggedIn()) : ?>
+															<li>
+																<a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+															</li>
+															<li>
+																<a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+															</li>
+															<li>
+																<a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+															</li>
+															<li>
+																<a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+															</li>
+															<?php else: ?>
+																<li class="item"><a href='https://naringol.com/sales/guest/form/'><i class="fa fa-circle-o-notch icons"></i><span>پیگیری خرید</span></a></li>
+															<?php endif; ?>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+                                </div>
+
+                                <div class="settings-topbar visible-xs-block col-xs-2">
+                                    <div class="settings">
+                                        <i class="icon-user"></i>
+                                        <div class="settings-inner">
+                                            <div class="setting-content">
+                                                <?php if ($this->getChildHtml('store_language')) : ?>
+                                                    <div class="setting-language">
+                                                        <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                        <?php echo $this->getChildHtml('store_language'); ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <?php if ($this->getChildHtml('currency')) : ?>
+                                                    <div class="setting-currency">
+                                                        <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                        <?php echo $this->getChildHtml('currency') ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <div class="setting-option">
+                                                    <ul>
+                                                        <li>
+                                                            <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                                <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                            <?php else: ?>
+                                                                <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                            <?php endif; ?>
+                                                        </li>
+                                                        <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <li>
+                                                            <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                        </li>
+                                                        <?php else: ?>
+                                                            <li class="item"><a href='https://naringol.com/sales/guest/form/'><i class="fa fa-circle-o-notch icons"></i><span>پیگیری خرید</span></a></li>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container">
+                    <div class="nav-top-inner clearfix hidden-xs">
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                            </div>
+                            <div class="sticky-cart"></div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                                    <ul>
+                                                        <li>
+                                                            <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                                <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                            <?php else: ?>
+                                                                <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                            <?php endif; ?>
+                                                        </li>
+                                                        <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <li>
+                                                            <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                        </li>
+                                                        <?php else: ?>
+                                                            <li class="item"><a href='https://naringol.com/sales/guest/form/'><i class="fa fa-circle-o-notch icons"></i><span>پیگیری خرید</span></a></li>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block">
+                            <?php echo $this->getChildHtml('topMenu') ?>
+                        </div>
+                    </div>
+                    <div class="search-bottom visible-xs-block"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+
+                // responsive quick search
+                var $window = $(window);
+                var $topsearch = $('.top-seach .quick-search');
+
+                function checkWidth() {
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        if ($topsearch.length) {
+                            $topsearch.find('.icon_close').remove();
+                            $topsearch.detach().appendTo('.search-bottom');
+                        }
+                    } else {
+                        if ($('.search-bottom .quick-search').length) {
+                            $('.search-bottom .quick-search').find('.icon_close').remove();
+                            $('.search-bottom .quick-search').detach().appendTo('.top-seach');
+                        }
+                    }
+                }
+                checkWidth();
+                $(window).resize(checkWidth);
+                $('.search-bottom .quick-search input').on('click', function(event) {
+                    event.preventDefault();
+                    $(window).off("resize");
+                });
+
+                // sticky menu
+                <?php if ($stickyEnable) { ?>
+                $('#typo-sticky-header').sticky({topSpacing: 0});
+                $('#typo-sticky-header').on('sticky-start', function() {
+                    $('.top-seach .quick-search').detach().appendTo('.sticky-search');
+                    if (!$('.nav-top-inner .quick-search .icon_close').length) {
+                        $('.nav-top-inner .quick-search').append('<i aria-hidden="true" class="icon_close"></i>');
+                    };
+
+                    $('.cart-sticky  .typo-maincart').detach().appendTo('.sticky-cart');
+
+                    $('.nav-top-inner .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+
+                    $(document).on('click', function(event) {
+                        if (!$(event.target).closest('.sticky-search').length) {
+                            $('.nav-top-inner .quick-search').removeClass('showing');
+                            $('#typo-sticky-header').removeClass('sticky-bg');
+                        }
+                    });
+                    $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    });
+                    $('.sticky-search > i').on('click', function(event) {
+                        $('.nav-top-inner .quick-search').addClass('showing');
+                        $('#typo-sticky-header').addClass('sticky-bg');
+                        setTimeout(function () {
+                            $('.sticky-search .quick-search input').focus();
+                        }, 100);
+                    });
+                    $('.sticky-search .quick-search').on('click', function(event) {
+                        $(this).find('input').focus();
+                    });
+                });
+
+                $('#typo-sticky-header').on('sticky-end', function() {
+                    if ($('.nav-top-inner .quick-search').length) {
+                        $('.nav-top-inner .quick-search input').attr('placeholder', '<?php echo $this->__("Search") ?>...');
+                        $('.nav-top-inner .quick-search .icon_close').remove();
+                        $('.nav-top-inner .quick-search').detach().appendTo('.top-seach');
+                    };
+
+                    $('.nav-top-inner .typo-maincart').detach().appendTo('.cart-sticky');
+                });
+                <?php } ?>
+            });
+        </script>
+        <!--End Header Layout 1-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "layout2"): ?>
+        <!--Begin Header Layout 2-->
+        <div class="header">
+            <div class="header-top hidden-xs">
+                <div class="container">
+                    <div class="header-top-inner">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block-phone-email')->toHtml(); ?>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="top-bar">
+                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                        <div class="login-topbar">
+                                            <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><span><?php echo $this->__('Logout'); ?></span></a>
+                                        </div>
+                                        <div class="acc-topbar">
+                                            <div class="acc-btn">
+                                                <a><?php echo $this->__('My Account') ?><i class="fa fa-angle-down"></i></a>
+                                            </div>
+                                            <div class="acc-list">
+                                                <ul>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="login-topbar">
+                                            <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i aria-hidden="true" class="icon_lock">&nbsp;</i> <span><?php echo $this->__('Login and Register'); ?></span></a>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if ($this->getChildHtml('currency') || $this->getChildHtml('store_language')) : ?>
+                                        <?php echo $this->getChildHtml('currency') ?>
+                                        <?php if ($this->getChildHtml('currency') && $this->getChildHtml('store_language')) : ?>
+                                            <span class="delimiter"></span>
+                                        <?php endif; ?>
+                                        <?php echo $this->getChildHtml('store_language') ?>
+                                    <?php else: ?>
+                                        <div class="welcome-user"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <?php if ($compareHeader) : ?>
+                                    <div class="compare-topbar block-top-compare">
+                                        <?php echo $this->getChildHtml('compareajax') ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container">
+                    <div class="nav-top-inner clearfix">
+                        <div class="logo-home02">
+                            <?php if ($theme->getIsHomePage()): ?>
+                                <h1 class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                        <strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </h1>
+                            <?php else: ?>
+                                <div class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                                <div class="quick-search">
+                                    <?php echo $this->getChildHtml('topSearch') ?>
+                                    <i aria-hidden="true" class="icon_close"></i>
+                                </div>
+                            </div>
+                            <div class="sticky-cart <?php echo $class; ?>">
+                                <div class="typo-maincart">
+                                    <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                </div>
+                            </div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                            <ul>
+                                                <li>
+                                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                    <?php else: ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+                var $window = $(window);
+                function checkWidth() {
+                    <?php if ($stickyEnable) : ?>
+                    $("#typo-sticky-header").unstick();
+                    <?php endif; ?>
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        <?php if ($stickyEnable) : ?>
+                        $("#typo-sticky-header").unstick();
+                        <?php endif; ?>
+                    } else {
+                        // sticky menu
+                        <?php if ($stickyEnable) : ?>
+                        $('#typo-sticky-header').sticky({topSpacing: 0});
+                        <?php endif; ?>
+                    }
+                }
+                checkWidth();
+                $(window).resize(checkWidth);
+
+                // quick search
+                $(document).on('click', function(event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    }
+                });
+                $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').removeClass('showing');
+                    $('#typo-sticky-header').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').addClass('showing');
+                    $('#typo-sticky-header').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function(event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout 2-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "layout3"): ?>
+        <!--Begin Header Layout 3-->
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container">
+                    <div class="nav-top-inner clearfix">
+                        <div class="logo-home03">
+                            <?php if ($theme->getIsHomePage()): ?>
+                                <h1 class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </h1>
+                            <?php else: ?>
+                                <div class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                                <div class="quick-search">
+                                    <?php echo $this->getChildHtml('topSearch') ?>
+                                    <i aria-hidden="true" class="icon_close"></i>
+                                </div>
+                            </div>
+                            <div class="sticky-cart <?php echo $class; ?>">
+                                <div class="typo-maincart">
+                                    <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                </div>
+                            </div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                            <ul>
+                                                <li>
+                                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                    <?php else: ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                    </div>
+                    <?php if ($compareHeader) : ?>
+                        <div class="compare-topbar block-top-compare">
+                            <?php echo $this->getChildHtml('compareajax') ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+                var $window = $(window);
+                function checkWidth() {
+                    <?php if ($stickyEnable) : ?>
+                    $("#typo-sticky-header").unstick();
+                    <?php endif; ?>
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        <?php if ($stickyEnable) : ?>
+                        $("#typo-sticky-header").unstick();
+                        <?php endif; ?>
+                    } else {
+                        // sticky menu
+                        <?php if ($stickyEnable) : ?>
+                        $('#typo-sticky-header').sticky({topSpacing: 0});
+                        <?php endif; ?>
+                    }
+                }
+                checkWidth();
+                $(window).resize(checkWidth);
+
+                // quick search
+                $(document).on('click', function(event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    }
+                });
+                $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').removeClass('showing');
+                    $('#typo-sticky-header').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').addClass('showing');
+                    $('#typo-sticky-header').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function(event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout 3-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "layout4"): ?>
+        <!--Begin Header Layout 4-->
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container">
+                    <div class="nav-top-inner clearfix">
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="logo-home04">
+                            <?php if ($theme->getIsHomePage()): ?>
+                                <h1 class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                        <strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </h1>
+                            <?php else: ?>
+                                <div class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                                <div class="quick-search">
+                                    <?php echo $this->getChildHtml('topSearch') ?>
+                                    <i aria-hidden="true" class="icon_close"></i>
+                                </div>
+                            </div>
+                            <div class="sticky-cart <?php echo $class; ?>">
+                                <div class="typo-maincart">
+                                    <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                </div>
+                            </div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                            <ul>
+                                                <li>
+                                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                    <?php else: ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php if ($compareHeader) : ?>
+        <div class="compare-topbar block-top-compare">
+            <?php echo $this->getChildHtml('compareajax') ?>
+        </div>
+    <?php endif; ?>
+        <script>
+            jQuery(document).ready(function ($) {
+                // sticky menu
+                <?php if ($stickyEnable) : ?>
+                $('#typo-sticky-header').sticky({topSpacing: 0});
+                <?php endif; ?>
+
+                // quick search
+                $(document).on('click', function(event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    }
+                });
+                $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').removeClass('showing');
+                    $('#typo-sticky-header').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').addClass('showing');
+                    $('#typo-sticky-header').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function(event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout 4-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "layout5"): ?>
+        <!--Begin Header Layout 5-->
+        <div class="header">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-top-inner">
+                        <div class="row">
+                            <div class="hidden-xs col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="welcome-user hidden-xs"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></div>
+                            </div>
+                            <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                <div class="store-cr hidden-xs">
+                                    <?php if ($this->getChildHtml('currency') || $this->getChildHtml('store_language')) : ?>
+                                        <span class="delimiter"></span>
+                                        <?php echo $this->getChildHtml('store_language') ?>
+                                        <?php if ($this->getChildHtml('currency') && $this->getChildHtml('store_language')) : ?>
+                                            <span class="delimiter"></span>
+                                        <?php endif; ?>
+                                        <?php echo $this->getChildHtml('currency') ?>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="social">
+                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('social')->toHtml(); ?>
+                                </div>
+                            </div>
+                            <div class="settings-topbar visible-xs-block col-xs-2">
+                                <div class="settings">
+                                    <i class="icon-user"></i>
+                                    <div class="settings-inner">
+                                        <div class="setting-content">
+                                            <?php if ($this->getChildHtml('store_language')) : ?>
+                                                <div class="setting-language">
+                                                    <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                    <?php echo $this->getChildHtml('store_language'); ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if ($this->getChildHtml('currency')) : ?>
+                                                <div class="setting-currency">
+                                                    <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                    <?php echo $this->getChildHtml('currency') ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <div class="setting-option">
+                                                <ul>
+                                                    <li>
+                                                        <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                            <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                        <?php else: ?>
+                                                            <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                        <?php endif; ?>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php if ($compareHeader) : ?>
+                                <div class="compare-topbar block-top-compare">
+                                    <?php echo $this->getChildHtml('compareajax') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-content">
+                <div class="container">
+                    <div class="header-inner">
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-4 col-md-4 col-lg-5 col-sm-push-4 col-lg-push-4">
+                                <div class="top-seach">
+                                    <div class="menu-bar-btn hidden-sm hidden-md hidden-lg">
+                                        <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                                    </div>
+                                    <div class="quick-search">
+                                        <?php echo $this->getChildHtml('topSearch') ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-4 col-sm-pull-4 col-lg-pull-5">
+                                <div class="logo-home">
+                                    <?php if ($this->getIsHomePage()): ?>
+                                        <h1 class="logo">
+                                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                                <strong><?php echo $logoAlt ?></strong>
+                                                <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                            </a>
+                                        </h1>
+                                    <?php else: ?>
+                                        <div class="logo">
+                                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                                <strong><?php echo $logoAlt ?></strong>
+                                                <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                            </a>
+                                        </div>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-4 col-md-5 col-lg-3">
+                                <div class="typo-top-cart cart-sticky <?php echo $class; ?>">
+                                    <div class="typo-maincart">
+                                        <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                    </div>
+                                    <!-- <div id="notification"></div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container">
+                    <div class="nav-top-inner clearfix hidden-xs">
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                            </div>
+                            <div class="sticky-cart"></div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                            <ul>
+                                                <li>
+                                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                    <?php else: ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                        <div class="top-bar">
+                            <div class="inner-top-bar">
+                                <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                    <div class="hidden-xs login-topbar">
+                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><span><?php echo $this->__('Logout'); ?></span></a>
+                                    </div>
+                                    <div class="hidden-xs acc-topbar">
+                                        <div class="acc-btn">
+                                            <a><?php echo $this->__('My Account') ?><i class="fa fa-angle-down"></i></a>
+                                        </div>
+                                        <div class="acc-list">
+                                            <ul>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="hidden-xs login-topbar">
+                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                    </div>
+                                    <div class="hidden-xs register-topbar">
+                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><span><?php echo $this->__('Sign Up'); ?></span></a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-bottom visible-xs-block"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+
+                // responsive quick search
+                var $window = $(window);
+                var $topsearch = $('.top-seach .quick-search');
+
+                function checkWidth() {
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        if ($topsearch.length) {
+                            $topsearch.find('.icon_close').remove();
+                            $topsearch.detach().appendTo('.search-bottom');
+                        }
+                    } else {
+                        if ($('.search-bottom .quick-search').length) {
+                            $('.search-bottom .quick-search').find('.icon_close').remove();
+                            $('.search-bottom .quick-search').detach().appendTo('.top-seach');
+                        }
+                    }
+                }
+                checkWidth();
+                $(window).resize(checkWidth);
+                $('.search-bottom .quick-search input').on('click', function(event) {
+                    event.preventDefault();
+                    $(window).off("resize");
+                });
+
+                // sticky menu
+                <?php if ($stickyEnable) { ?>
+                $('#typo-sticky-header').sticky({topSpacing: 0});
+                $('#typo-sticky-header').on('sticky-start', function() {
+                    $('.top-seach .quick-search').detach().appendTo('.sticky-search');
+                    if (!$('.nav-top-inner .quick-search .icon_close').length) {
+                        $('.nav-top-inner .quick-search').append('<i aria-hidden="true" class="icon_close"></i>');
+                    };
+
+                    $('.cart-sticky  .typo-maincart').detach().appendTo('.sticky-cart');
+
+                    $('.nav-top-inner .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+
+                    $(document).on('click', function(event) {
+                        if (!$(event.target).closest('.sticky-search').length) {
+                            $('.nav-top-inner .quick-search').removeClass('showing');
+                            $('#typo-sticky-header').removeClass('sticky-bg');
+                        }
+                    });
+                    $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    });
+                    $('.sticky-search > i').on('click', function(event) {
+                        $('.nav-top-inner .quick-search').addClass('showing');
+                        $('#typo-sticky-header').addClass('sticky-bg');
+                        setTimeout(function () {
+                            $('.sticky-search .quick-search input').focus();
+                        }, 100);
+                    });
+                    $('.sticky-search .quick-search').on('click', function(event) {
+                        $(this).find('input').focus();
+                    });
+                });
+                $('#typo-sticky-header').on('sticky-end', function() {
+                    if ($('.nav-top-inner .quick-search').length) {
+                        $('.nav-top-inner .quick-search input').attr('placeholder', '<?php echo $this->__("Search") ?>...');
+                        $('.nav-top-inner .quick-search .icon_close').remove();
+                        $('.nav-top-inner .quick-search').detach().appendTo('.top-seach');
+                    };
+
+                    $('.nav-top-inner .typo-maincart').detach().appendTo('.cart-sticky');
+                });
+                <?php } ?>
+            });
+        </script>
+        <!--End Header Layout 5-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "layout6"): ?>
+        <!--Begin Header Layout 6-->
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container">
+                    <div class="nav-top-inner clearfix">
+                        <div class="logo-home06">
+                            <?php if ($theme->getIsHomePage()): ?>
+                                <h1 class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </h1>
+                            <?php else: ?>
+                                <div class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                                <div class="quick-search">
+                                    <?php echo $this->getChildHtml('topSearch') ?>
+                                    <i aria-hidden="true" class="icon_close"></i>
+                                </div>
+                            </div>
+                            <div class="sticky-cart <?php echo $class; ?>">
+                                <div class="typo-maincart">
+                                    <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                </div>
+                            </div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                            <ul>
+                                                <li>
+                                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                    <?php else: ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                    </div>
+                    <?php if ($compareHeader) : ?>
+                        <div class="compare-topbar block-top-compare">
+                            <?php echo $this->getChildHtml('compareajax') ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+                var $window = $(window);
+                function checkWidth() {
+                    <?php if ($stickyEnable) : ?>
+                    $("#typo-sticky-header").unstick();
+                    <?php endif; ?>
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        <?php if ($stickyEnable) : ?>
+                        $("#typo-sticky-header").unstick();
+                        <?php endif; ?>
+                    } else {
+                        // sticky menu
+                        <?php if ($stickyEnable) : ?>
+                        $('#typo-sticky-header').sticky({topSpacing: 0});
+                        <?php endif; ?>
+                    }
+                }
+                checkWidth();
+                $(window).resize(checkWidth);
+
+                // quick search
+                $(document).on('click', function(event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    }
+                });
+                $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').removeClass('showing');
+                    $('#typo-sticky-header').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').addClass('showing');
+                    $('#typo-sticky-header').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function(event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout 6-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "layout7"): ?>
+        <!--Begin Header Layout 7-->
+        <div class="header">
+            <div class="header-top">
+                <div class="container-fluid">
+                    <div class="header-top-inner">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block-phone-email')->toHtml(); ?>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="top-bar">
+                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                        <div class="login-topbar">
+                                            <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><span><?php echo $this->__('Logout'); ?></span></a>
+                                        </div>
+                                        <div class="acc-topbar">
+                                            <div class="acc-btn">
+                                                <a><?php echo $this->__('My Account') ?><i class="fa fa-angle-down"></i></a>
+                                            </div>
+                                            <div class="acc-list">
+                                                <ul>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="login-topbar">
+                                            <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i aria-hidden="true" class="icon_lock">&nbsp;</i> <span><?php echo $this->__('Login and Register'); ?></span></a>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if ($this->getChildHtml('currency') || $this->getChildHtml('store_language')) : ?>
+                                        <?php echo $this->getChildHtml('currency') ?>
+                                        <?php if ($this->getChildHtml('currency') && $this->getChildHtml('store_language')) : ?>
+                                            <span class="delimiter"></span>
+                                        <?php endif; ?>
+                                        <?php echo $this->getChildHtml('store_language') ?>
+                                    <?php else: ?>
+                                        <div class="welcome-user"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <?php if ($compareHeader) : ?>
+                                    <div class="compare-topbar block-top-compare">
+                                        <?php echo $this->getChildHtml('compareajax') ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container-fluid">
+                    <div class="nav-top-inner clearfix">
+                        <div class="logo-home02">
+                            <?php if ($theme->getIsHomePage()): ?>
+                                <h1 class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                        <strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </h1>
+                            <?php else: ?>
+                                <div class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                                <div class="quick-search">
+                                    <?php echo $this->getChildHtml('topSearch') ?>
+                                    <i aria-hidden="true" class="icon_close"></i>
+                                </div>
+                            </div>
+                            <div class="sticky-cart <?php echo $class; ?>">
+                                <div class="typo-maincart">
+                                    <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                </div>
+                            </div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                            <ul>
+                                                <li>
+                                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                    <?php else: ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+                var $window = $(window);
+                function checkWidth() {
+                    <?php if ($stickyEnable) : ?>
+                    $("#typo-sticky-header").unstick();
+                    <?php endif; ?>
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        <?php if ($stickyEnable) : ?>
+                        $("#typo-sticky-header").unstick();
+                        <?php endif; ?>
+                    } else {
+                        // sticky menu
+                        <?php if ($stickyEnable) : ?>
+                        $('#typo-sticky-header').sticky({topSpacing: 0});
+                        <?php endif; ?>
+                    }
+                }
+                checkWidth();
+                $(window).resize(checkWidth);
+
+                // quick search
+                $(document).on('click', function(event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    }
+                });
+                $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').removeClass('showing');
+                    $('#typo-sticky-header').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').addClass('showing');
+                    $('#typo-sticky-header').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function(event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout 7-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "layout8"): ?>
+        <!--Begin Header Layout 8-->
+        <div class="header-menu" id="typo-sticky-header">
+            <div class="nav-top">
+                <div class="container">
+                    <div class="nav-top-inner clearfix">
+                        <div class="logo-home02">
+                            <?php if ($theme->getIsHomePage()): ?>
+                                <h1 class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>">
+                                        <strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </h1>
+                            <?php else: ?>
+                                <div class="logo">
+                                    <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                        <img class="img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>" alt="<?php echo $logoAlt ?>"/>
+                                    </a>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                        <div class="logo-sticky" style="display: none;">
+                            <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                <span><img class="img-sticky img-responsive" src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>" alt="<?php echo $logoAlt; ?>" /></span>
+                            </a>
+                        </div>
+                        <div class="menu-bar-btn hidden-lg">
+                            <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span></button>
+                        </div>
+                        <div class="sticky-icon-group">
+                            <div class="sticky-search">
+                                <i class="icon-magnifier"></i>
+                                <div class="quick-search">
+                                    <?php echo $this->getChildHtml('topSearch') ?>
+                                    <i aria-hidden="true" class="icon_close"></i>
+                                </div>
+                            </div>
+                            <div class="sticky-cart <?php echo $class; ?>">
+                                <div class="typo-maincart">
+                                    <?php echo $this->getChildHtml('ajaxcart'); ?>
+                                </div>
+                            </div>
+                            <div class="settings">
+                                <i class="icon-user"></i>
+                                <div class="settings-inner">
+                                    <div class="setting-content">
+                                        <?php if ($this->getChildHtml('store_language')) : ?>
+                                            <div class="setting-language">
+                                                <div class="title"><?php echo $this->__('Select language') ?></div>
+                                                <?php echo $this->getChildHtml('store_language'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($this->getChildHtml('currency')) : ?>
+                                            <div class="setting-currency">
+                                                <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                                <?php echo $this->getChildHtml('currency') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="setting-option">
+                                            <ul>
+                                                <li>
+                                                    <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                                    <?php else: ?>
+                                                        <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?></span></a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                    </div>
+                    <?php if ($compareHeader) : ?>
+                        <div class="compare-topbar block-top-compare">
+                            <?php echo $this->getChildHtml('compareajax') ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function ($) {
+                var $window = $(window);
+                function checkWidth() {
+                    <?php if ($stickyEnable) : ?>
+                    $("#typo-sticky-header").unstick();
+                    <?php endif; ?>
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        <?php if ($stickyEnable) : ?>
+                        $("#typo-sticky-header").unstick();
+                        <?php endif; ?>
+                    } else {
+                        // sticky menu
+                        <?php if ($stickyEnable) : ?>
+                        $('#typo-sticky-header').sticky({topSpacing: 0});
+                        <?php endif; ?>
+                    }
+                }
+                checkWidth();
+                $(window).resize(checkWidth);
+
+                // quick search
+                $(document).on('click', function(event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.nav-top-inner .quick-search').removeClass('showing');
+                        $('#typo-sticky-header').removeClass('sticky-bg');
+                    }
+                });
+                $('.nav-top-inner .quick-search .icon_close').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').removeClass('showing');
+                    $('#typo-sticky-header').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function(event) {
+                    $('.nav-top-inner .quick-search').addClass('showing');
+                    $('#typo-sticky-header').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function(event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout 8-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "sb-layout1"): ?>
+        <!--Begin Header Layout Sidebar 1 (Light)-->
+        <div class="sb-topbar">
+            <div class="menu-bar-btn hidden-lg">
+                <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span>
+                </button>
+            </div>
+            <div class="sticky-icon-group">
+                <div class="sticky-search">
+                    <i class="icon-magnifier"></i>
+
+                    <div class="quick-search">
+                        <?php echo $this->getChildHtml('topSearch') ?>
+                        <i aria-hidden="true" class="icon_close"></i>
+                    </div>
+                </div>
+                <div class="sticky-cart <?php echo $class; ?>">
+                    <div class="typo-maincart">
+                        <?php echo $this->getChildHtml('ajaxcart'); ?>
+                    </div>
+                </div>
+                <div class="settings">
+                    <i class="icon-user"></i>
+
+                    <div class="settings-inner">
+                        <div class="setting-content">
+                            <?php if ($this->getChildHtml('store_language')) : ?>
+                                <div class="setting-language">
+                                    <div class="title"><?php echo $this->__('Select language') ?></div>
+                                    <?php echo $this->getChildHtml('store_language'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($this->getChildHtml('currency')) : ?>
+                                <div class="setting-currency">
+                                    <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                    <?php echo $this->getChildHtml('currency') ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="setting-option">
+                                <ul>
+                                    <li>
+                                        <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                            <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i
+                                                        class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                        <?php else: ?>
+                                            <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i
+                                                        class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?>
+                                                    </span></a>
+                                        <?php endif; ?>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i
+                                                    class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i
+                                                    class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i
+                                                    class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i
+                                                    class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu sb-header-menu">
+            <div class="nav-top">
+                <div class="nav-top-inner clearfix">
+                    <div class="logo-home">
+                        <?php if ($theme->getIsHomePage()): ?>
+                            <h1 class="logo">
+                                <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>"
+                                   title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                    <img class="img-responsive"
+                                         src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>"
+                                         alt="<?php echo $logoAlt ?>"/>
+                                </a>
+                            </h1>
+                        <?php else: ?>
+                            <div class="logo">
+                                <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>"
+                                   title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                    <img class="img-responsive"
+                                         src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>"
+                                         alt="<?php echo $logoAlt ?>"/>
+                                </a>
+                            </div>
+                        <?php endif ?>
+                    </div>
+                    <div class="logo-sticky" style="display: none;">
+                        <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                                                <span><img class="img-sticky img-responsive"
+                                                           src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>"
+                                                           alt="<?php echo $logoAlt; ?>"/></span>
+                        </a>
+                    </div>
+
+
+                    <div
+                            class="main-menu sb-main-menu visible-lg-inline-block">
+                        <?php echo $this->getChildHtml('topMenu') ?></div>
+                </div>
+                <?php if ($compareHeader) : ?>
+                    <div class="compare-topbar block-top-compare">
+                        <?php echo $this->getChildHtml('compareajax') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($theme->getCfg('sidebar_blocks_home/home_newsletter')) : ?>
+                <div class="sidebar-newsletter visible-lg">
+                    <div class="main-newsletter-inner">
+                        <?php echo $this->getLayout()->createBlock('newsletter/subscribe')->setTemplate('newsletter/subscribe.phtml')->toHtml(); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="sidebar-footer">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('home10-sidebar-footer')->toHtml(); ?>
+            </div>
+        </div>
+
+
+        <script>
+            jQuery(document).ready(function ($) {
+                var $window = $(window);
+
+                function checkWidth() {
+                    <?php if ($stickyEnable) : ?>
+                    $("#typo-sticky-header").unstick();
+                    <?php endif; ?>
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        <?php if ($stickyEnable) : ?>
+                        $("#typo-sticky-header").unstick();
+                        <?php endif; ?>
+                    } else {
+                        // sticky menu
+                        <?php if ($stickyEnable) : ?>
+                        $('#typo-sticky-header').sticky({topSpacing: 0});
+                        <?php endif; ?>
+                    }
+                }
+
+                checkWidth();
+                $(window).resize(checkWidth);
+
+                // quick search
+                $(document).on('click', function (event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.sticky-icon-group.quick-search').removeClass('showing');
+                        $('.sb-topbar').removeClass('sticky-bg');
+                    }
+                });
+                $('.sticky-icon-group .quick-search .icon_close').on('click', function (event) {
+                    $('.sticky-icon-group .quick-search').removeClass('showing');
+                    $('.sb-topbar').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function (event) {
+                    $('.sticky-icon-group .quick-search').addClass('showing');
+                    $('.sb-topbar').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function (event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout Sidebar 1 (Light)-->
+    <?php endif ?>
+
+    <?php if ($headerLayout == "sb-layout2"): ?>
+        <!--Begin Header Layout Sidebar 2 (Dark)-->
+        <div class="header-menu sb-header-menu">
+            <div class="menu-bar-btn hidden-lg">
+                <button class="btn-nav cmn-toggle-switch cmn-toggle-switch__htx"><span>toggle menu</span>
+                </button>
+            </div>
+            <div class="nav-top">
+                <div class="nav-top-inner clearfix">
+                    <div class="logo-home">
+                        <?php if ($theme->getIsHomePage()): ?>
+                            <h1 class="logo">
+                                <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>"
+                                   title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                    <img class="img-responsive"
+                                         src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>"
+                                         alt="<?php echo $logoAlt ?>"/>
+                                </a>
+                            </h1>
+                        <?php else: ?>
+                            <div class="logo">
+                                <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>"
+                                   title="<?php echo $logoAlt ?>"><strong><?php echo $logoAlt ?></strong>
+                                    <img class="img-responsive"
+                                         src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo; ?>"
+                                         alt="<?php echo $logoAlt ?>"/>
+                                </a>
+                            </div>
+                        <?php endif ?>
+                    </div>
+                    <div class="logo-sticky" style="display: none;">
+                        <a href="<?php echo $this->getUrl('', $theme->checkSSL()) ?>" title="<?php echo $logoAlt; ?>">
+                        <span><img class="img-sticky img-responsive"
+                                   src="<?php echo $mediaUrl . 'wysiwyg/typostores/typologancee/logo/' . $logo_sticky; ?>"
+                                   alt="<?php echo $logoAlt; ?>"/></span>
+                        </a>
+                    </div>
+
+
+                    <div
+                            class="main-menu sb-main-menu visible-lg-inline-block"><?php echo $this->getChildHtml('topMenu') ?></div>
+                </div>
+                <?php if ($compareHeader) : ?>
+                    <div class="compare-topbar block-top-compare">
+                        <?php echo $this->getChildHtml('compareajax') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="typo-sb-setting">
+                <div class="store-selector">
+                    <?php if ($this->getChildHtml('store_language')) : ?>
+                        <?php echo $this->getChildHtml('store_language'); ?>
+                    <?php endif; ?>
+                    <?php if ($this->getChildHtml('currency')) : ?>
+                        <?php echo $this->getChildHtml('currency') ?>
+                    <?php endif; ?>
+                </div>
+                <div class="settings">
+                    <i class="icon-user"> </i>
+                    <div class="settings-inner">
+                        <div class="setting-content">
+                            <?php if ($this->getChildHtml('store_language')) : ?>
+                                <div class="setting-language">
+                                    <div class="title"><?php echo $this->__('Select language') ?></div>
+                                    <?php echo $this->getChildHtml('store_language'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($this->getChildHtml('currency')) : ?>
+                                <div class="setting-currency">
+                                    <div class="title"><?php echo $this->__('Select currency') ?></div>
+                                    <?php echo $this->getChildHtml('currency') ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="setting-option">
+                                <ul>
+                                    <li>
+                                        <?php if ($sessionCustomer->isLoggedIn()) : ?>
+                                            <a href="<?php echo Mage::getUrl('customer/account/logout', $theme->checkSSL()); ?>"><i
+                                                        class="icon-logout icons"></i><span><?php echo $this->__('Logout'); ?></span></a>
+                                        <?php else: ?>
+                                            <a href="<?php echo Mage::getUrl('customer/account/login', $theme->checkSSL()); ?>"><i
+                                                        class="icon-lock-open icons"></i><span><?php echo $this->__('Login and Register'); ?>
+                                                </span></a>
+                                        <?php endif; ?>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->getUrl('customer/account', $theme->checkSSL()) ?>"><i
+                                                    class="icon-user icons"></i><span><?php echo $this->__('My Account') ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->getUrl('wishlist', $theme->checkSSL()) ?>"><i
+                                                    class="icon-heart icons"></i><span><?php echo $this->__('My Wishlist') ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->getUrl('checkout/cart', $theme->checkSSL()) ?>"><i
+                                                    class="icon-handbag icons"></i><span><?php echo $this->__('My Cart') ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo Mage::helper('checkout/url')->getCheckoutUrl() ?>"><i
+                                                    class="icon-note icons"></i><span><?php echo $this->__('Checkout'); ?></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="typo-sb-quicksearch">
+                <?php echo $this->getChildHtml('topSearch') ?>
+            </div>
+
+            <div class="typo-sb-cart">
+                <div class="typo-maincart">
+                    <?php echo $this->getChildHtml('ajaxcart'); ?>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            jQuery(document).ready(function ($) {
+                var $window = $(window);
+
+                function checkWidth() {
+                    <?php if ($stickyEnable) : ?>
+                    $("#typo-sticky-header").unstick();
+                    <?php endif; ?>
+                    var windowsize = $window.width();
+                    if (windowsize < 768) {
+                        <?php if ($stickyEnable) : ?>
+                        $("#typo-sticky-header").unstick();
+                        <?php endif; ?>
+                    } else {
+                        // sticky menu
+                        <?php if ($stickyEnable) : ?>
+                        $('#typo-sticky-header').sticky({topSpacing: 0});
+                        <?php endif; ?>
+                    }
+                }
+
+                checkWidth();
+                $(window).resize(checkWidth);
+
+                // quick search
+                $(document).on('click', function (event) {
+                    if (!$(event.target).closest('.sticky-search').length) {
+                        $('.sticky-icon-group.quick-search').removeClass('showing');
+                        $('.sb-topbar').removeClass('sticky-bg');
+                    }
+                });
+                $('.sticky-icon-group .quick-search .icon_close').on('click', function (event) {
+                    $('.sticky-icon-group .quick-search').removeClass('showing');
+                    $('.sb-topbar').removeClass('sticky-bg');
+                });
+                $('.sticky-search > i').on('click', function (event) {
+                    $('.sticky-icon-group .quick-search').addClass('showing');
+                    $('.sb-topbar').addClass('sticky-bg');
+                    $('.sticky-search .quick-search input').attr('placeholder', '<?php echo $this->jsQuoteEscape($this->__("Type & Hit Enter")) ?>...');
+                    setTimeout(function () {
+                        $('.sticky-search .quick-search input').focus();
+                    }, 100);
+                });
+                $('.sticky-search .quick-search').on('click', function (event) {
+                    $(this).find('input').focus();
+                });
+            });
+        </script>
+        <!--End Header Layout Sidebar 2 (Dark)-->
+    <?php endif ?>
+    <script type="text/javascript">
+        function isRetina() {
+            return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-resolution: 75.6dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)').matches)) || (window.devicePixelRatio && window.devicePixelRatio > 2)) && /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+        }
+        <?php if ($logo_retina) : ?>
+        $typo(window).load(function () {
+            // alert(isRetina());
+            var $logoImg = $typo('.logo img');
+            if (isRetina()) {
+                $logoImg.attr('src', $logoImg.attr('src').replace('<?php echo $logo;?>', '<?php echo $logo_retina;?>'));
+            }
+        });
+        <?php endif; ?>
+    </script>
+</header>
+<style>
+    @media (max-width: 1199px){
+        .rtl .typo-icon-ajaxcart .icon-cart {
+            float: right;
+        }
+    }
+    @media (max-width: 767px){
+
+
+        .typo-top-cart .typo-maincart {
+            display: table-cell !important;
+        }
+        .typo-top-cart .inner-top-bar{
+            margin-right: 0 !important;
+        }
+    }
+    .typo-icon-ajaxcart .typo-cart-label{
+        line-height: 38px;
+    }
+    .rtl .login-topbar {
+        float: left !important;
+    }
+    .hidden-xs.acc-topbar{
+        float: left;
+    }
+</style>
+<style>
+    #_loader{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9998;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+    }
+    #_loader_msg{
+        padding: 20px 15px;
+        line-height: 1.4;
+        position: relative;
+        text-align: center;
+        top: 35%;
+        width: 300px;
+        z-index: 10000000000000000;
+        background: #FFF none repeat scroll 0 0;
+        margin: 0 auto;
+        border-top: 9px solid #00a594;
+
+    }
+</style>
+<div id="_loader">
+    <div id="_loader_msg" class="loader">
+        <div id="_loader_msg_1" class="msg-box"><?= $this->__('Registering an order ...') ?></div>
+        <?php
+        $loader =  $this->getSkinUrl('images/opc-ajax-loader.gif');
+        ?>
+        <img src="<?= $loader ?>" alt="">
+    </div>
+</div>
+<script>
+
+ jQuery('.main-container').prepend("<div id='yerd' style='width: 100%;background: #000;position: fixed;top: 0;background-color: rgb(0 0 0 / 45%);z-index: 30;opacity: 0;'></div>");
+</script>

@@ -1,0 +1,88 @@
+#688a7a
+#f3e3d6
+#e0dec9
+grep -iRl "button.btn-green, a.btn-green" ./
+
+//in jquery.ajaxcart js
+button btn-cart btn-green validation-passed
+button btn-cart btn-view-cart
+button btn-cart btn-green validation-passed pointer-event
+
+//in design css
+.add-to-links > div a {
+  color:#999999;
+  background-color:transparent;
+  border-color:#688a7a;  
+}
+.add-to-links > div a:hover {
+    color: black;
+    background-color: #e0dec9;
+    border: none;
+}
+/* main buttons*/
+    button.button, a.button {
+      color:#000000;
+      background-color:#ffffff;
+      border-color:#688a7a;
+      border-radius: 13px;
+    }
+    button.button:hover, a.button:hover {
+      color:#ffffff;
+      border:none;
+      background-color:#e0dec9;
+    }
+    button.btn-green:active, a.btn-green:active {
+        color: #000;
+        background-color: #e0dec9;
+        border:none;
+        position: relative;
+        overflow: hidden;
+    }
+    button.btn-green:active:after, a.btn-green:active:after {
+        content: "";
+        height: 3px;
+        background: #688a7a;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+    .btn-green-parent button.button, .btn-green-parent a.button {
+        color: #fff;
+        background-color: #688a7a;
+        border-color: #999;
+        border-radius: 15px;
+    }
+    .btn-green {
+        color: #fff;
+        background: #5bcb8a;
+        font-size: 1.5em;
+        min-width: 250px;
+    }
+    button.btn-green, a.btn-green {
+        color: #fff;
+        background-color: #688a7a;
+        border-color: #999;
+        border-radius: 15px;
+    }
+    button.btn-green:hover, a.btn-green:hover {
+        color: #000;
+        border: none;
+        background-color: #f3e3d6;
+    }
+    button.btn-green:active, a.btn-green:active {
+        color: #000;
+        border: none;
+        background-color: #f3e3d6;
+        position: relative;
+        overflow: hidden;
+    }
+    button.btn-green:active:after, a.btn-green:active:after {
+        content: "";
+        height: 3px;
+        background: #688a7a;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }

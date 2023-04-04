@@ -1,0 +1,658 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+
+$theme = $this->helper('typologancee');
+$helpImg = $this->helper('typologancee/image');
+$imgWidth = $theme->getCfg('category/image_width') ? $theme->getCfg('category/image_width') : 270;
+$imgHeight = $theme->getCfg('category/image_height') ? $theme->getCfg('category/image_height') : 360;
+if ($theme->getCfg('category/aspect_ratio')) {
+    $imgHeight = 0;
+}
+$nextprev = $theme->getCfg('product_page/product_nextprev');
+$productTypeId = $_product->getTypeId();
+$productTypeClasses = '';
+if ($productTypeId === 'grouped') {
+    $productTypeClasses .= ' is-type-grouped';
+}
+
+$checkTypeFile = false;
+foreach ($_product->getOptions() as $o) {
+    $optionType = $o->getType();
+    if ($optionType == 'file') {
+        $checkTypeFile = true;
+    }
+}
+$classFile = "";
+if ($checkTypeFile) {
+    $classFile = "option-file";
+}
+
+//Rich snippets
+$helperSnippets = $this->helper('typologancee/rsnippets');
+$useRichSnippets = ($helperSnippets->isEnabledOnProductPage());
+$priceProperties = '';
+if ($useRichSnippets) {
+    $priceProperties = $helperSnippets->getPriceProperties($_product); //Has to be called before getOfferItemscope
+}
+
+$_prev = Mage::helper('typologancee')->getPreviousProduct();
+$_next = Mage::helper('typologancee')->getNextProduct();
+?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div
+        class="product-view <?php echo $classFile; ?>" <?php if ($useRichSnippets) echo $helperSnippets->getProductItemscope(); ?>>
+
+
+    <div class="product-essential row">
+        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post"
+              id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <div class="no-display col-lg-12">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>"/>
+                <input type="hidden" name="related_product" id="related-products-field" value=""/>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="row p-visible-mobile" style="margin:0;">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h4 class="product-name"
+                                <?php if ($useRichSnippets) : ?>itemprop="name"<?php endif; ?> ><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h4>
+                        </div>
+
+                        <?php $sku = $_product->getSku(); ?>
+                        <?php if ($sku && $theme->getCfg('product_page/show_sku')) : ?>
+                            <div class="sku col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                <span class="title"><strong><?php echo $this->__('SKU'); ?>: </strong></span>
+                                <span class="value"><strong><?php echo $sku; ?></strong></span>
+                            </div>
+                            <?php if ($useRichSnippets): ?>
+                                <meta itemprop="productID" content="<?php echo $sku; ?>" /><?php endif; ?>
+                        <?php endif; ?>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding:0;">
+							<ul class="add-to-links" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 28px;">
+								<?php if ($this->helper('wishlist')->isAllow()) : ?>
+								<li><a data-toggle="tooltip" data-placement="top" class="trasition-all" title="<?php echo $this->__('add to wishlist') ?>" href="<?php echo $this->getAddToWishlistUrl($_product) ?>" class="link-wishlist" style="color: #d4d4d4;"><i class="fa fa fa-heart-o"></i><?php /*echo $this->__('Add to Wishlist') */?></a></li>
+								<?php endif; ?>
+								<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+								 <li><a data-toggle="tooltip" data-placement="top" class="trasition-all" title="<?php echo $this->__('add to compare list') ?>" rel="nofollow" href="<?php echo $_compareUrl ?>" class="link-compare" style="color: #d4d4d4;"><i aria-hidden="true" class="fa fa-pie-chart"></i><?php /* echo $this->__('Add to Compare')*/ ?></a></li>
+								<?php endif; ?>
+								<?php if ($_product->isSaleable()) : ?>
+								<li><a data-toggle="tooltip" data-placement="top" class="trasition-all" title="<?php echo $this->__('Share on Telegram') ?>"  href="#"target="_blank" rel="nofollow" onclick="window.open('https://telegram.me/share/url?url='+'<?php echo $_product->getProductUrl(); ?>');return false;" style="color: #d4d4d4;"><i class="fa fa-share-alt"></i></a></li>
+								<?php endif; ?>
+								<li><a data-toggle="tooltip" data-placement="top" class="trasition-all" title="<?php echo $this->__('go to review list') ?>" onclick="ReviewList()" class=""  style="color: #d4d4d4; cursor:pointer;"><i aria-hidden="true" class="fa fa-commenting-o"></i></a></li>
+							</ul>
+						</div>
+                        <div class="product-img-box col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                            <?php /* echo $this->helper('typologancee')->getLabel($_product);*/ ?>
+                            <?php /*<?php if($_product->getAttributeText('n_campaign')): ?>
+                                <span class="n-campaign"><span><?php echo $_product->getAttributeText('n_campaign'); ?></span></span>
+                            <?php endif ?> */ ?>
+                            <?php echo $this->getChildHtml('media') ?>                            
+                        </div>
+                        <?php if ($_product->getAttributeText('narin_campaigns')): ?>
+                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_notice_message')->toHtml(); ?>
+                         <?php endif ?>
+                        
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
+                        <div class="product-shop-view">
+                            <div class="row" style="margin:0;position: relative;width: 100%;">
+                                <div class=" col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                                    <div class="top-product-name row">
+                                        <div class=" p-visible-desktop">
+                                            <?php if ($nextprev) : ?>
+                                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                                                <?php else : ?>
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <?php endif; ?>
+                                                    <h4 class="product-name"
+                                                        <?php if ($useRichSnippets) : ?>itemprop="name"<?php endif; ?> ><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h4>
+                                                </div>
+
+
+                                                <?php if ($nextprev) : ?>
+                                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                                        <div class="product-more">
+                                                            <div class="product-prev-next">
+                                                                <ul class="row">
+                                                                    <?php if ($_prev): ?>
+                                                                        <li class="product-prev col-xs-6">
+                                                                            <a rel="nofollow"
+                                                                               title="<?php echo $this->escapeHtml($_prev->getName()); ?>"
+                                                                               href="<?php echo $_prev->getProductUrl(); ?>">
+                                                                                <i aria-hidden="true"
+                                                                                   class="arrow_left block-center"></i>
+                                                                                <img class="img-responsive lazy"
+                                                                                     src="<?php echo $helpImg->getImg($_prev, 60, round(60 * $imgHeight / $imgWidth), 'small_image'); ?>"
+                                                                                     width="60"
+                                                                                     height="<?php echo round(60 * $imgHeight / $imgWidth); ?>"
+                                                                                     alt="<?php echo $this->escapeHtml($_prev->getName()); ?>"/>
+                                                                            </a>
+                                                                        </li>
+                                                                    <?php endif; ?>
+                                                                    <?php if ($_next): ?>
+                                                                        <li class="product-next col-xs-6">
+                                                                            <a rel="nofollow"
+                                                                               title="<?php echo $this->escapeHtml($_next->getName()); ?>"
+                                                                               href="<?php echo $_next->getProductUrl(); ?>">
+                                                                                <i aria-hidden="true"
+                                                                                   class="arrow_right block-center"></i>
+                                                                                <img class="img-responsive lazy"
+                                                                                     src="<?php echo $helpImg->getImg($_next, 60, 60 * $imgHeight / $imgWidth, 'small_image'); ?>"
+                                                                                     width="60"
+                                                                                     height="<?php echo 60 * $imgHeight / $imgWidth; ?>"
+                                                                                     alt="<?php echo $this->escapeHtml($_next->getName()); ?>"/>
+                                                                            </a>
+                                                                        </li>
+                                                                    <?php endif; ?>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class=" p-visible-desktop row">
+                                            <?php $sku = $_product->getSku(); ?>
+                                            <?php if ($sku && $theme->getCfg('product_page/show_sku')) : ?>
+                                                <div class="sku col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                    <span class="title"><strong><?php echo $this->__('SKU'); ?>
+                                                            : </strong></span>
+                                                    <span class="value"><strong><?php echo $sku; ?></strong></span>
+                                                </div>
+                                                <?php if ($useRichSnippets): ?>
+                                                    <meta itemprop="productID"
+                                                          content="<?php echo $sku; ?>" /><?php endif; ?>
+                                            <?php endif; ?>
+																						        <?php if ($this->getRatingSummary()):?>
+														<?php if ($useRichSnippets) : ?>
+														<meta itemprop="ratingValue" content="<?php echo $this->getRatingSummary(); ?>" />
+														<meta itemprop="ratingCount" content="<?php echo $this->getReviewsCount(); ?>" />
+														<meta itemprop="worstRating" content="0" />
+														<meta itemprop="bestRating" content="100" />
+														<?php endif; ?>
+													<?php endif; ?>
+                                            <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                                        </div>
+										 <div class="row n-p-info">
+												<?php if ($_product->getShortDescription()): ?>
+												<div class="short-description">
+													<div class="desc std"
+													<?php if ($useRichSnippets) : ?>itemprop="description"<?php endif; ?>><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+													</div>
+												<?php endif; ?>
+												<?php
+													if ($_product->getAttributeText("manufacturer")):
+														echo $this->__('Manufacturer') . " : ";
+														echo $_product->getAttributeText("manufacturer");
+														echo " / ";
+													endif;
+													if ($_product->getData("n_weight")):
+
+														echo $this->__('Weight') . " : ";
+														echo $_product->getData("n_weight");
+													endif
+												?>
+                                        <?php if ($_product->getData("n_benefits") | $_product->getData("n_hairskintype") | $_product->getData("n_aromabeneit")): ?>                                       
+                                                <div class="std" >
+													<?php if ($_product->getData("n_benefits")): ?>
+                                                        <div class="nar-benefits-list" >
+                                                            <?php
+                                                            $persianValue = explode(",", $_product->getResource()->getAttribute('n_benefits')->getFrontend()->getValue($_product));
+                                                            $benefitsPercent = explode(',', $_product->getData('benefits_percent'));
+                                                            $all = array_combine($persianValue, $benefitsPercent);
+                                                            ?>
+                                                            <?php if (count($all) > 0): ?>
+                                                                <div style=""> <?php echo $this->__('Skin and hair benefits'); ?> </div>
+                                                                <ul class = "nar-benefits-percent" >
+                                                                    <?php foreach ($all as $key => $val): ?>
+                                                                        <li class="">
+                                                                            <span style = "width: <?php echo $val ?>%;"></span>
+																			<span><?php echo $val.'% '.$key ?></span>
+                                                                        </li>
+                                                                    <?php endforeach; ?>
+                                                                </ul>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    <?php endif ?>
+                                                    <?php if ($_product->getData("n_aromabeneit")): ?>
+                                                        <div class="nar-benefits-list">
+                                                            <?php
+                                                            $persianValue = explode(",", $_product->getResource()->getAttribute('n_aromabeneit')->getFrontend()->getValue($_product));
+                                                            $benefitsPercent = explode(',', $_product->getData('aromabenefits_percent'));
+                                                            $all = array_combine($persianValue, $benefitsPercent );
+                                                            ?>
+                                                            <?php if (count($all) > 0): ?>
+                                                                <div style=""> <?php echo $this->__('Aromtherapy benefits'); ?> </div>
+                                                                <ul class = "nar-benefits-percent" >
+                                                                    <?php foreach ($all as $key => $val): ?>
+                                                                        <li class="">
+                                                                            <span style = "width: <?php echo $val ?>%;"></span>
+																			<span><?php echo $val.'% '.$key ?></span>
+                                                                        </li>
+                                                                    <?php endforeach; ?>
+                                                                </ul>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    <?php endif ?>
+                                                    <?php if ($_product->getData("n_hairskintype")): ?>
+                                                        <div class="nar-benefits-list n_hairskintype">
+                                                            <?php
+                                                            $persianValue = explode(",", $_product->getResource()->getAttribute('n_hairskintype')->getFrontend()->getValue($_product));
+                                                            $englishValue = explode(",", $_product->getResource()->getAttribute('n_hairskintype')->setStoreId(0)->getFrontend()->getValue($_product));
+                                                            $all = array_combine($englishValue, $persianValue);
+                                                            ?>
+                                                            <?php if (count($all) > 0): ?>
+                                                                <div style=""> <?php echo $this->__('Suitable for:'); ?> </div>
+                                                                <ul>
+                                                                    <?php foreach ($all as $key => $val): ?>
+                                                                        <li class="<?php echo $key ?>">
+                                                                            <span></span>
+                                                                            <span><?php echo $val ?></span>
+                                                                        </li>
+                                                                    <?php endforeach; ?>
+                                                                </ul>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    <?php endif ?>
+                                                </div>
+											<?php endif ?>
+											   <div class="">
+                                                <?php echo $this->getChildHtml('alert_urls') ?>
+
+                                                <div <?php if ($useRichSnippets) echo $helperSnippets->getOfferItemscope(); ?>>
+                                                    <div
+                                                            class="product-type-data clearfix<?php echo $productTypeClasses; ?>"><?php echo $this->getChildHtml('product_type_data') ?></div>
+                                                    <?php echo $priceProperties; ?>
+                                                </div>
+                                                <?php echo $this->getChildHtml('extrahint') ?>
+                                                <div style="    position: relative;
+    top: -35px;">
+
+                                                    <?php echo $this->getTierPriceHtml() ?>
+
+                                                    <?php if (!$this->hasOptions()): ?>
+                                                        <div class="add-to-box product-general-view <?php echo $productTypeClasses; ?>">
+                                                            <?php if ($_product->isSaleable()): ?>
+                                                                <?php echo $this->getChildHtml('addtocart') ?>
+                                                                <?php if ($this->helper('wishlist')->isAllow() || $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
+                                                                    <!--<span class="or"><?php //echo $this->__('OR') ?></span>-->
+                                                                <?php endif; ?>
+                                                            <?php endif; ?>
+                                                            <div class="product-add-to-links">
+                                                                <?php echo $this->getChildHtml('addto') ?>
+                                                            </div>
+                                                        </div>
+                                                        <?php echo $this->getChildHtml('extra_buttons') ?>
+                                                    <?php elseif (!$_product->isSaleable()): ?>
+                                                        <div class="add-to-box">
+                                                            <?php echo $this->getChildHtml('addto') ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
+                                                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                                                <?php endif; ?>
+
+                                                <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
+                                                    <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                                                <?php endif; ?>
+                                            </div>
+                                            </div>
+
+
+    <div class="col-xs-12 col-sm-7 proimage disp">
+<?php  echo $this->getLayout()->createBlock('cms/block')->setBlockId('pic-product')->toHtml(); ?>
+</div>
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 n-p-left-col">
+                                        <?php if ($_product->getData("n_usage_notice")): ?>
+                                            <div class="n-usage-notice n-p-info n-p-animation">
+
+                                                <a onclick="showMore('n-usage','500')"
+                                                   class="p-visible-mobile n-more-show n-more-btn" id="n-usage-show"><i
+                                                            class="fal fa fa-chevron-down"></i></a>
+                                                <a onclick="showLess('n-usage','0')"
+                                                   class="p-visible-mobile n-more-hide n-more-btn" id="n-usage-hide"><i
+                                                            class="fal fa fa-chevron-up"></i></a>
+
+                                                <div class="n-p-animation-head">
+                                                    <span>
+                                                        <span> <?php echo $this->__('notice') ?>
+                                                </div>
+
+                                                <div class="n-p-animation-body n-more-panel" id="n-usage-panel">
+                                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('n_usage_notice')->toHtml(); ?>
+                                                </div>
+
+
+                                            </div>
+                                        <?php endif ?>
+                                        <?php if ($_product->getAttributeText('quality_guarantee') || $_product->getAttributeText('effect_guarantee') || $_product->getAttributeText('purity_guarantee')): ?>
+                                            <div class="n-usage-notice n-p-info n-p-animation nar-gaurantee">
+                                                <?php /*<a onclick="showMore('n-guarantee','500')"
+                                                   class="p-visible-mobile n-more-show n-more-btn"
+                                                   id="n-guarantee-show"><i
+                                                            class="fal fa fa-chevron-down"></i></a>
+                                                <a onclick="showLess('n-guarantee','0')"
+                                                   class="p-visible-mobile n-more-hide n-more-btn"
+                                                   id="n-guarantee-hide"><i
+                                                            class="fal fa fa-chevron-up"></i></a>
+                                                            */ ?>
+                                                <div class="n-p-animation-head">
+                                                	<i class="n-p-info-icon p-visible-desktop"></i>
+                                                    <span>
+                                                        <?php /* if ($_product->getAttributeText('quality_guarantee')): ?>
+                                                            <span><span><?php echo $_product->getAttributeText('quality_guarantee'); ?></span></span>
+                                                        <?php endif ?>
+                                                        <?php if ($_product->getAttributeText('effect_guarantee')): ?>
+                                                            <span><span><?php echo $_product->getAttributeText('effect_guarantee'); ?></span></span>
+                                                        <?php endif ?>
+                                                        <?php if ($_product->getAttributeText('purity_guarantee')): ?>
+                                                            <span><span><?php echo $_product->getAttributeText('purity_guarantee'); ?></span></span>
+                                                        <?php endif */ ?> 
+                                                        <span><span>چرا نارین گل؟</span></span>
+                                                    </span>
+                                                </div>
+                                                <div class="n-p-animation-body n-more-panel" id="n-guarantee-panel" style="max-height: initial;">
+                                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('n_guarantee_definition')->toHtml();?>
+                                                </div>
+                                            </div>
+                                        <?php endif ?>
+                                        <?php if(Mage::getModel('cms/block')->load('product_n_warranty')->getIsActive()): ?>
+                                        <div class="n-usage-notice n-p-info n-p-animation nar-general-info">
+                                            <div class="n-p-animation-head">
+                                            	<i class=" n-p-info-icon p-visible-desktop"></i>
+                                                <span> <?php echo $this->__('General information') ?> </span>
+                                            </div>
+                                            <a onclick="showMore('n-warranty','500')"
+                                               class="p-visible-mobile n-more-show n-more-btn" id="n-warranty-show"><i
+                                                        class="fal fa fa-chevron-down"></i></a>
+                                            <a onclick="showLess('n-warranty','0')"
+                                               class="p-visible-mobile n-more-hide n-more-btn" id="n-warranty-hide"><i
+                                                        class="fal fa fa-chevron-up"></i></a>
+                                            <div class="n-p-animation-body n-more-panel" id="n-warranty-panel">
+                                                <div>
+                                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_n_warranty')->toHtml(); ?>
+                                                </div>
+                                                <div>
+                                                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_general_info')->toHtml(); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endif ?>
+                                    </div>
+
+                                </div>
+
+                                <?php echo $this->getChildHtml('other'); ?>
+                            </div>
+                        </div>
+                    </div>
+					<div class="row"><?php echo $this->getChildHtml('product_random_reviews') ?></div>
+                </div>
+        </form>
+        <script type="text/javascript">
+            //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function (button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    if (url) {
+                        form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+            productAddToCartForm.submitLight = function (button, url) {
+                if (this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+            //]]>
+        </script>
+    </div>
+
+
+    <div class="product-custom-static-block">
+        <br>
+        <div style="background: #ffffff">
+            <?php
+            $product = Mage::registry('current_product');
+            $id = $product->getId();
+            $getProductCmsBlockTab = Mage::helper('netweb_tab')->getCmsBlock($id);
+            ?>
+            <?php if ($getProductCmsBlockTab['status']): ?>
+                <div class="product-tabs-content" id="product_tabs_<?php echo $getProductCmsBlockTab['alias'] ?>_contents">
+                    <div class="product-tabs-content-inner clearfix">
+                        <div class="box-collateral box-desc n-product-desc" id="n-product-desc-cms_mode" style="line-height:35px; font-size:medium;">
+                            <div class="n-more-panel-container">
+                                <span class="n-more-panel-close">✕</span>
+                                <div class="std" id="show_product_cms" >
+                                    <?php echo $getProductCmsBlockTab['content'] ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    jQuery(document).ready(function(){
+                        jQuery('#show_product_cms_more').click(function () {
+                            jQuery('#n-desc-fade2').removeClass('n-more-fade');
+                            jQuery(this).removeClass('n-more-show');
+                            jQuery(this).addClass('n-more-hide');
+
+                            jQuery("#show_product_cms_less").addClass('n-more-show');
+                            jQuery("#show_product_cms_less").removeClass('n-more-hide');
+
+
+                            jQuery("#show_product_cms").css('max-height','fit-content');
+
+                        });
+
+
+
+                        jQuery('#show_product_cms_less').click(function () {
+                            jQuery('#n-desc-fade2').addClass('n-more-fade');
+                            jQuery(this).removeClass('n-more-show');
+                            jQuery(this).addClass('n-more-hide');
+
+                            jQuery("#show_product_cms_more").addClass('n-more-show');
+                            jQuery("#show_product_cms_more").removeClass('n-more-hide');
+
+                            jQuery("#show_product_cms").css('max-height','300px');
+
+                        });
+
+
+                        if(jQuery('#n-desc-panel').height() < 300 ){
+                            // jQuery('#show_product_cms_more , #n-desc-fade').css('display','none');
+                        }
+                    });
+                </script>
+            <?php endif ?>
+        </div>
+    </div>
+
+
+    <div class="product-collateral" style="margin:0;">        
+        <?php echo $this->getChildHtml('info_tabs') ?>
+        <?php /*echo $this->getChildHtml('product_additional_data')*/ ?>
+		<?php //echo $this->getChildHtml('related_products') ?>
+    </div>
+    <?php echo $this->getChildHtml('upsell_products') ?>
+</div>
+<script>
+    var jq = jQuery.noConflict()
+    function ReviewList() {
+        // li title
+        jq("#product_tabs_tab_review_list2").addClass('active');
+        jq("#product_tabs_additional").removeClass('active');
+        jq("#product_tabs_p_certificates").removeClass('active');
+        jq("#product_tabs_how_to_use").removeClass('active');
+        jq("#product_tabs_description").removeClass('active');
+
+        // contents
+       var target = jq("#product_tabs_tab_review_list2_contents").show();
+        target.show();
+       jq("#product_tabs_description_contents").hide();
+       jq("#product_tabs_how_to_use_contents").hide();
+       jq("#product_tabs_p_certificates_contents").hide();
+       jq("#product_tabs_additional_contents").hide();
+
+        jq('html,body').animate({
+            scrollTop: target.offset().top
+        }, 500);
+    }
+
+    function ReviewForm() {
+        // li title
+        jq("#product_tabs_tab_review_list2").addClass('active');
+        jq("#product_tabs_additional").removeClass('active');
+        jq("#product_tabs_p_certificates").removeClass('active');
+        jq("#product_tabs_how_to_use").removeClass('active');
+        jq("#product_tabs_description").removeClass('active');
+
+        // contents
+        var target = jq("#review-form").show();
+        jq("#product_tabs_tab_review_list2_contents").show();
+        jq("#product_tabs_description_contents").hide();
+        jq("#product_tabs_how_to_use_contents").hide();
+        jq("#product_tabs_p_certificates_contents").hide();
+        jq("#product_tabs_additional_contents").hide();
+
+        jq('html,body').animate({
+            scrollTop: target.offset().top
+        }, 500);
+    }
+
+</script>
+<script>
+function showMore(id,maxHeight){
+    document.getElementById(id + '-panel').style.maxHeight = maxHeight+ "px";
+    document.getElementById(id + '-show').style.display = "none";
+    document.getElementById(id + '-hide').style.display = "block";
+    document.getElementById(id + '-fade').style.opacity = "0";
+    document.getElementById(id + '-fade').style.zIndex = "-1";
+}
+function showLess(id,maxHeight){
+    document.getElementById(id + '-panel').style.maxHeight = maxHeight+"px";
+    document.getElementById(id + '-show').style.display = "block";
+    document.getElementById(id + '-hide').style.display = "none";
+    document.getElementById(id + '-fade').style.opacity = "1";
+    document.getElementById(id + '-fade').style.zIndex = "inherit";
+    smoothScroll(id + '-hide');
+    
+}
+
+jQuery(document).ready(function(){
+    jQuery('#more-panel-show').click(function () {
+        jQuery('#n-product-desc').addClass('more-panel-open');
+    });
+    jQuery('#more-panel-hide, .n-more-panel-close').click(function () {
+        jQuery('#n-product-desc').removeClass('more-panel-open');
+    });
+
+    if(jQuery('#n-desc-panel').height() < 300 ){
+        jQuery('#more-panel-show , #n-desc-fade').css('display','none');
+    }
+});
+</script>
+
+<style type="text/css">
+@media (max-width: 768px){
+    .col-xs-12.col-sm-7.proimage {
+    display: none;
+}
+}
+    
+@media (min-width: 767px){
+    .col-xs-12.col-sm-7.proimage {
+    float: left;
+    position: relative;
+    top: 32px;
+    padding: 0 !important;
+}
+}
+</style>

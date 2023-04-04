@@ -1,0 +1,165 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+
+$collection = Mage::getResourceModel('advancedreviews/review')->getFilteredReviews(
+    $this->getRequest()->getParam('id'), null, 1, 10, 'by_rating', 'DESC',
+    $this->getRequest()->getParam('customerId')
+);
+
+$collection->getSelect()->order('rand()');
+$collection->getSelect()->limit(3);
+
+$_randomlist = $collection->getItems();
+
+function limit_text($text, $limit)
+{
+    $words = explode(' ', $text);
+    if (count($words) > $limit) {
+        array_splice($words, $limit);
+        array_push($words,'...');
+    }
+    $text = implode(' ', $words);
+    return $text ;
+}
+
+?>
+<div class="box-collateral box-reviews" id="customer-reviews">
+    <?php if (count($_randomlist)): ?>
+        <h4 style="text-align: center">بقیه مشتریان چرا این محصول را خریده اند؟</h4>
+        <div class="review-content owl-carousel owl-theme" style="margin-top: 10px;">
+            <?php foreach ($_randomlist as $_review): ?>
+                <div class="item review-list product-selected-reviews"
+                     style="margin-top:15px; padding-left: 20px; padding-right: 20px;" <?php if ($rsnippets) echo 'itemprop="review" itemtype="http://schema.org/Review" itemscope="itemscope"' ?>>
+                    <div class="review-info" itemprop="description">
+                        <?php $disc = $_review->getDetail();
+                        echo nl2br($this->htmlEscape(limit_text($disc, 30))); ?>
+                    </div>
+                    <div class="review-by" style="padding: 5px 10px;">
+                        <!-- <a href="<?php //echo $this->getReviewUrl($_review->getId()) ?>"><?php //echo $this->htmlEscape($_review->getTitle()) ?></a> -->
+                        <small><?php echo $this->__('Review has been sent by') ?>:</small>
+                        <small class="name"
+                               itemprop="author"><?php echo $this->htmlEscape($_review->getNickname()) ?></small>
+                        <small class="date"><?php echo $this->__('Posted on %s', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+</div>
+<style>
+    .product-selected-reviews .review-info {
+        width: 100%;
+        background: #aeffec;
+        border-radius: 20px;
+        padding:5px 30px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .product-selected-reviews .review-info:after {
+        content: "";
+        border-top: 14px solid #aeffec;
+        border-right: 26px solid transparent;
+        position: absolute;
+        bottom: -12Px;
+        left: 4%;
+    }
+</style>
+<script>
+    jQuery(document).ready(function () {
+
+        jQuery('#customer-reviews .owl-carousel').owlCarousel({
+            rtl:true,
+            margin:10,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:1
+                },
+                992:{
+                    items:3,
+                }
+            }
+        });
+
+        
+		/*var elems = jQuery(".product-selected-reviews .review-info");*/
+		
+        setHeight();
+		
+		/*jQuery(window).on('resize', setHeight(elems));*/
+		
+        jQuery(window).resize(function () {
+            setHeight();
+        });
+		jQuery(window).trigger('resize');
+		/*var resizeTimer;
+		jQuery(window).resize(function () {
+			if (resizeTimer) {
+				clearTimeout(resizeTimer);   // clear any previous pending timer
+			}
+			 // set new timer
+			resizeTimer = setTimeout(function() {
+				resizeTimer = null;
+				setHeight(elems);
+				// put your resize logic here and it will only be called when 
+				// there's been a pause in resize events
+			}, 500);  
+		});*/
+    });
+
+    function setHeight() {
+		let elems = jQuery(".product-selected-reviews .review-info");
+        elems.each(function () {
+            jQuery(this).css( {"height": 'auto'} );
+
+        });
+
+        let max_height = 0;
+
+        elems.each(function () {
+            
+            if (jQuery(this).outerHeight() > max_height) {
+                max_height = jQuery(this).outerHeight();
+            }
+        });
+
+        elems.each(function () {
+            jQuery(this).height( max_height );
+			
+        });
+
+    }
+
+</script>

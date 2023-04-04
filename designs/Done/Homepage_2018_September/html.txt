@@ -1,0 +1,114 @@
+css:
+
+.nar-temp-first{
+	height:200px;
+	background-position:center;
+	background-size:cover;
+}
+.nar_temp_first a{
+	height:400px;
+	width:100%;
+	cursor:pointer;
+}
+.nar_temp_first h4{
+	postition:absolute;
+	height:30%;
+	width:70%;
+	top:60%
+	right:0;
+	z-index:10;
+	cursor:pointer;
+}
+.nar-temp-second{
+	height:400px;
+	position:relative;
+	background-position:center;
+	background-size:cover;
+}
+.nar-temp-third{
+	height:500px;
+	background-position:center;
+	background-size:cover;
+}
+.nar_temp_third a{
+	height:100%;
+	width:100%;
+	cursor:pointer;
+}
+
+.nar_temp_third h4{
+	postition:absolute;
+    max-width: 410px;
+    background: #ffffffc7;
+	left: 10%;
+    padding: 15px;
+	top: 40%;
+	width: 400px;
+    height: 250px;
+}
+***
+.home07 .slider-home .caption {
+    right: 10%;
+    /* left: 16%; */
+    max-width: 410px;
+    background: #ffffffc7;
+    padding: 15px;
+	top: 40%;
+	width: 400px;
+    height: 250px;
+}
+
+html:
+<div class="row">
+	<div class="nar-temp-first col-lg-2 col-md-2 hidden-sm hidden-xs" style="background-img:url()">		
+	</div>
+	<div class="nar-temp-first col-lg-8 col-md-8 col-sm-12 col-xs-12" style="background-img:url()">	
+			<div class="nar-temp-first col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-img:url()">
+			</div>
+			<div class="nar-temp-first col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-img:url()">
+			</div>
+			<div class="nar-temp-first col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-img:url()">
+			</div>
+			<div class="nar-temp-first col-lg-3 col-md-3 col-sm-3 col-xs-3" style="background-img:url()">		
+			</div>	
+	</div>
+	<div class="nar-temp-first col-sm-12 col-xs-12 hidden-lg hidden-md" style="background-img:url()">		
+	</div>
+	<div class="nar-temp-first col-lg-2 col-md-2 hidden-sm hidden-xs" style="background-img:url()">		
+	</div>
+</div>
+
+*************
+<div class="row">
+	<div class="nar-temp-second col-lg-4 col-md-4 col-sm-12 col-xs-12" style="background-img:url()">	
+		<a href="">
+			<p>
+				<h4><h4>
+			</p>	
+		</a>
+	</div>
+	<div class="nar-temp-second col-lg-4 col-md-4 col-sm-12 col-xs-12" style="background-img:url()">	
+		<a href="">
+			<p>
+				<h4><h4>
+			</p>	
+		</a>
+	</div>
+	<div class="nar-temp-second col-lg-4 col-md-4 col-sm-12 col-xs-12" style="background-img:url()">	
+		<a href="">
+			<p>
+				<h4><h4>
+			</p>	
+		</a>
+	</div> 
+</div>
+***************
+<div class="row">
+	<div class="nar-temp-third col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-img:url()">
+		<a href="">
+			<p>
+				<h4><h4>
+			</p>	
+		</a>
+	</div>
+</div>

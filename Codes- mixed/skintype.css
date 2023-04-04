@@ -1,0 +1,530 @@
+﻿#skin-m-content-main #result-recommend-products>div#skin-m-content-main .test-general-info>div{
+	width: 50%;
+    display: inline-block;
+    float: right;
+    text-align: justify;
+    padding: 10px;	
+}
+#skin-m-content-main .test-general-info>div input,.test-general-info>div select{
+	width: 100%;
+	padding: 10px;
+}
+.test-general-info > div{
+    padding: 10px;
+    width: 50%;
+}
+#skin-m-content-main .test-sec-title {
+	text-align: center;
+    display: block;
+    clear: both;
+    font-size: 20px;
+	margin-bottom:15px;
+	margin-top: 20px;
+}
+#skin-m-content-main .test-banner{
+	background-image:url('https://naringol.com/media/wysiwyg/skintype-test-banner.jpg');
+	height: 200px;
+    position: relative;
+	background-position: right;
+	background-size: cover;
+}
+#skin-m-content-main .test-banner > span {
+	position: absolute;
+    text-align: center;
+    margin: 0;
+    line-height: 60px;
+	left: 5px;
+    right: 5px;
+	display:table;
+	background: #ffffff99;
+	height: 190px;
+	top: 5px;
+}
+#skin-m-content-main .test-banner > span strong {
+	display: block;
+	font-size: 24px;
+}
+#skin-m-content-main .test-banner > span > p {
+    text-align: center;
+    display: table-cell;
+    height: 190px;
+    line-height: 60px;
+    vertical-align: middle;
+	line-height: 30px;
+}
+#skin-m-content-main .test-button{
+		width:100%;
+		text-align:center;
+}
+#skin-m-content-main #questions > div:nth-child(2) > div {
+	margin-bottom: 50px;
+    height: auto;
+    overflow: hidden;	
+}
+
+#skin-m-content-main #test-explaination{
+    overflow: hidden;
+    height: auto;	
+}
+#skin-m-content-main #test{
+	width:100%;
+	height:auto;
+	margin:20px auto;
+	overflow:hidden;
+	color:#47434c;
+	font-size:16px;
+	
+}
+#skin-m-content-main{
+	width:100%;
+	float:right;
+	overflow:hidden;
+}
+#skin-m-content-main #test_title{
+	width:760px;
+	height:60px;
+	text-align:center;
+	line-height:60px;
+	font-size:24px;
+	color:#fff;
+	background-color:#5bcb8a;
+float:right;
+}
+#skin-m-content-main #test>div{
+	font-size:15px;
+}
+
+
+#skin-m-content-main input[type=radio]:not(old)
+{
+  width     : 2em;
+  font-size : 1em;
+  opacity   : 0;
+  display:none;
+}
+
+#skin-m-content-main input[type=radio]:not(old) + label
+{
+    display: inline-block;
+    margin: 0;
+    line-height: 1.5em;
+    padding: 10px;
+    text-align: center;
+    float: right;
+    cursor: pointer;
+}
+
+#skin-m-content-main input[type=radio]:not(old) + label> span{
+	display: table;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    /*background-image: -moz-linear-gradient(rgb(255,255,255),rgba(192, 242, 217, 0.8));
+    background-image: -ms-linear-gradient(rgb(255,255,255),rgba(192, 242, 217, 0.8));
+    background-image: -o-linear-gradient(rgb(255,255,255),rgba(192, 242, 217, 0.8));*/
+	line-height:26px;
+	transition: background linear 0.2s,border linear 0.2s;
+}
+
+#skin-m-content-main input[type=radio]:not(old) + label> span >span{
+    display: table-cell;
+    vertical-align: middle;
+}
+#q1 label{
+	width:100%;
+}
+#q1 label>span{
+	min-height:350px;
+	padding: 10px;
+	height: 350px;
+	background: rgb(243, 243, 243);
+}
+#q1 img{
+	width:90px;
+}
+#q1 strong{
+	display: block;
+    margin-top: 20px;
+}
+#q2 label {
+	width:50%;
+}
+#q2 label span{
+	width: 50%;
+	position: relative;
+	background-size: contain;
+}
+#q2 label span:after {
+    content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+#q2 label span span {
+	position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 50%;
+    line-height: 50px;
+    margin-top: -25px;
+    font-size: 16px;
+    text-align: center;
+	font-size: 17px;
+	line-height: 35px;
+}
+
+#q1 input[type=radio]:not(old):checked + label > span {
+    background: #52c3c6;
+}
+#q2 input[type=radio]:not(old):checked + label > span {
+    border: 6px solid #52c3c6;
+}
+
+#skin-m-content-main button
+{
+	width:150px;
+	height:50px;
+	font-size:16px;
+	color:#fff;
+	border:none;
+	margin-right:20px;
+	margin-top:40px;
+	outline: #52c3c6;
+	background-color:#52c3c6;
+	cursor:pointer;
+}
+
+#skin-m-content-main button:hover{
+	background-color:rgba(0,0,0);
+	color:#fff;
+
+		}
+#skin-m-content-main #warning{
+	display:none;
+	width:400px;
+	height:30px;
+	line-height:30px;
+	margin-top:20px;
+	color:red;
+}
+
+#skin-m-content-main #result-skintest{
+	display:none;
+	width:100%;
+	height:auto;
+	margin:10px auto 20px auto;
+	text-align:justify;
+
+	
+}
+
+#skin-m-content-main #image{
+	width:1200px;
+	height:300px;
+	margin:0px auto 20px auto;
+	
+}
+.skintest-res-info {
+	background: #f5f5f5;
+	text-align: center;	
+    padding: 5px 10px;
+}
+.skintest-res-info-title{
+	margin-bottom : 20px;
+	margin-top: 30px ;
+}
+.skintest-res-info-title h3, .skintest-res-info-title h4, .skintest-res-info-title h2{
+	margin:10px 0;
+}
+.skintest-res-info-content > div > div{
+	height : 200px;
+	margin-bottom: 10px;
+}
+.skintest-res-info-content > div span{
+	display: block;
+}
+.skintest-how-use {
+	width: 100%;
+	height: auto;
+	margin: 0;
+}
+.skintest-how-use img{
+	object-fit: contain;
+	height: 100%;
+	margin-bottom: 10px;
+}
+.skintest-guarantee{
+	background-image:url('https://naringol.com/media/wysiwyg/certifications-naringol-products-finall.png');
+	min-height: 350px;
+	height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#skin-m-content-main #result-recommend-products{
+	width:100%;
+}
+/*#skin-m-content-main #result-recommend-products>div{
+	width:100%;
+}
+#skin-m-content-main #result-recommend-products>div:nth-child(1)>div div,#result-recommend-products>div:nth-child(1)>div p{
+	width:100%;
+}*/
+
+/*responsive *************/
+/*************************/
+.result-recommend-product-link{
+	background: #38d0d0;
+	padding: 5px 15px;
+	margin-top: 10px;
+	display: inline-block;
+	font-size: 14px;
+}
+result-recommend2 .result-recommend-product-link{
+	background: #e14b89;
+}
+.recommend-row > div >div {
+	padding: 30px;
+}
+.recommend-row > div:first-child >div:first-child {
+	 text-align: center;
+ }
+.recommend-row > div:first-child >div:first-child img{
+		height:auto;
+		width:100%;
+}
+.recommend-row > div:first-child  >div:last-child {
+	width: 100%;
+	border-top: 1px solid;
+	margin:0;
+}
+.recommend-benefits {
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+}
+.recommend-benefits h4{
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	width: 40%;
+	margin: 0 auto;
+}
+.recommend-benefits > li {
+	background: #f5f5f5;
+	padding: 10px;
+	margin: 0 auto;
+	border-radius: 40px;
+	height: 50px;
+	position: relative;
+	overflow: hidden;
+	border: 1px solid #cccccc;
+	width: 60%;
+	margin-top: 20px;
+}
+
+.recommend-benefits > li > span:first-child {
+	width: 80%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 100%;
+	text-align: center;
+	background: #cccccc;
+}
+.recommend-benefits > li > span:last-child {
+	position: relative;
+	vertical-align: middle;
+}
+.recommen-left{
+	height: 100%;
+	display: table;
+	position: unset;
+	height: 100%;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+
+
+@media (min-width: 680px){
+	#skin-m-content-main .test-banner{
+		height: 300px;
+	}
+	#skin-m-content-main .test-banner > span > p {
+		line-height: inherit;
+		height: 300px;
+	}
+	#skin-m-content-main .test-banner > span {
+		top: 0;
+		background: none;
+	}
+	#skin-m-content-main .test-banner {
+		height: 300px;
+	}
+	/*#skin-m-content-main input[type=radio]:not(old) + label> span{
+		height:130px;
+	}*/
+	#skin-m-content-main input[type=radio]:not(old) + label{
+		width: 50%;
+	}
+	#skin-m-content-main .test-banner > span {
+		left: 50px;
+		right: unset;
+	}
+	.skintest-res-info-content > div > div{
+	height : 160px;
+	}
+	.recommend-row > div:first-child >div:first-child img{
+		height:250px;
+		width:auto;
+	}
+	.result-recommend-product-link{
+		font-size:18px;
+	}
+}
+
+@media (min-width: 992px) {
+	.recommen-left{
+		position: absolute;
+	}
+	#q1 input[type=radio]:not(old) + label{
+		width: 25%;
+	}
+	#q2 input[type=radio]:not(old) + label{
+		width: 20%;
+	}
+	.skintest-how-use{
+		height: 400px;
+	}
+}
+@media only screen and (min-width: 190px) and (max-width:299px) {
+@-ms-viewport { width: 190px; }
+
+	#skin-m-content-main #test{
+		width:100%;
+		
+	}
+	#skin-m-content-main{
+		width:100%;
+		float:none;
+
+	}
+
+	#skin-m-content-main #test_title{
+		width:100%;
+		float:none;
+		
+	}
+
+	#skin-m-content-main #result-skintest{
+		display:none;
+		width:100%;
+		float:none;
+		
+	}
+
+	#skin-m-content-main #image{
+		width:180px;
+		height:45px;
+		margin:0px auto 20px auto;
+		
+	}
+
+}
+@media only screen and (min-width: 300px) and (max-width:366px) {
+	
+@-ms-viewport { width: 190px; }
+
+	#skin-m-content-main #test{
+		width:290px;
+		
+	}
+	#skin-m-content-main{
+		width:100%;
+		float:none;
+
+	}
+
+	#skin-m-content-main #test_title{
+		width:100%;
+		float:none;
+		
+		
+	}
+
+
+	#skin-m-content-main #result-skintest{
+		display:none;
+		width:100%;
+		float:none;
+		
+	}
+
+	#skin-m-content-main #image{
+		width:250px;
+		height:72px;
+		margin:0px auto 20px auto;
+		
+	}
+}
+
+@media only screen and (min-width: 367px) and (max-width: 649px) {
+@-ms-viewport { width: 367px; }
+
+	#skin-m-content-main #test{
+		width:357px;
+		
+	}
+	#skin-m-content-main{
+		width:100%;
+		float:none;
+
+	}
+	#skin-m-content-main #test_title{
+		width:100%;
+		float:none;
+	}
+
+}
+
+@media only screen and (orientation:landscape) and (max-width: 649px) {
+@-ms-viewport { width: 367px; }
+
+	
+}
+
+@media only screen and (min-width: 650px)and (max-width: 899px)  {	
+@-ms-viewport { width: 650px; }
+
+	#skin-m-content-main #test{
+		width:100%px;
+		float:none;
+		
+	}
+	#skin-m-content-main #m-content-main{
+		width:100%;
+		float:none;
+
+	}
+	#skin-m-content-main #test_title{
+		width:100%;
+		float:none;
+		
+		
+	}
+
+	#skin-m-content-main #result-skintest{
+		display:none;
+		width:100%;
+		float:none;	
+	}
+
+	#skin-m-content-main #image{
+		width:640px;
+		height:160px;
+		margin:0px auto 20px auto;	
+	}
+
+
+}

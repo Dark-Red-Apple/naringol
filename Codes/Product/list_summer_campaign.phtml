@@ -1,0 +1,363 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+$_productCollection = $this->getLoadedProductCollection();
+$_helper            = $this->helper('catalog/output');
+$theme              = $this->helper('typologancee');
+$helpImg            = $this->helper('typologancee/image');
+$imgWidth           = $theme->getCfg('category/image_width') ? $theme->getCfg('category/image_width') : 270;
+$imgHeight          = $theme->getCfg('category/image_height') ? $theme->getCfg('category/image_height') : 360;
+if ($theme->getCfg('category/aspect_ratio')) {
+    $imgHeight = 0;
+}
+$cfaltimage     = $theme->getCfg('category/alt_image');
+$hoveraltClass  = ($cfaltimage == 1) ? 'front-img' : '';
+
+$btn_rating   = $theme->getCfg('category_grid/display_rating');
+$btn_cart     = $theme->getCfg('category_grid/display_addtocart');
+$btn_wishlist = $theme->getCfg('category_grid/display_addtowishlist');
+$btn_compare  = $theme->getCfg('category_grid/display_addtocompare');
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products clearfix">
+    <div class="toolbar-top" id="uppp">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="row item">
+            <?php // Product Image ?>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="product-list-img">
+                    <div class="product-show">
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                            <?php echo $this->helper('typologancee')->getLabel($_product);  ?>
+                            <span class="front margin-image">
+                                <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                    data-src="<?php echo $helpImg->getImg($_product, $imgWidth, $imgHeight, 'small_image'); ?>"
+                                    src="<?php echo $this->getSkinUrl('images/blank.png', $theme->checkSSL()) ?>" class="img-responsive lazy"
+                                    alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                            </span>
+                            <?php if ($theme->getCfg('category/alt_image')): ?>
+                                <span class="product-img-additional back margin-image">
+                                    <?php echo $theme->getAltImgHtml($_product, $imgWidth, $imgHeight); ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
+                        <div class="category-over product-show-box">
+                            <div class="main-quickview">
+                                <button type="button"  data-placement="top" title="<?php echo $this->__('Quick view') ?>" class="btn show-quickview" data-id="<?php echo $_product->getId(); ?>"><span><i aria-hidden="true" class="arrow_expand"></i><?php //echo $this->__('Quick view') ?></span></button>
+                                <a class="product-quickview" rel="nofollow" href="<?php echo $this->getUrl('ajaxcart/index/options/product_id/' . $_product->getId(), $theme->checkSSL()); ?>" data-id='quickview-<?php echo $_product->getId()?>' style='display:none'><?php echo $this->__('Quick view') ?></a>
+                            </div>
+                        </div>
+                        <?php
+                            if ($this->getChild('name.after')) {
+                                $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
+                                foreach ($_nameAfterChildren as $_nameAfterChildName) {
+                                    $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
+                                    $_nameAfterChild->setProduct($_product);
+                                    echo $_nameAfterChild->toHtml();
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <?php // Product description ?>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="product-shop">
+                    <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                    <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                    <?php if ($_product->getData("n_benefits")): ?>
+                        <div class="nar-benefits-list" style="padding: 0 50px;">
+                        <?php
+                        $persianValue = explode(",", $_product->getResource()->getAttribute('n_benefits')->getFrontend()->getValue($_product));
+                        $benefitsPercent = explode(',', $_product->getData('benefits_percent'));
+                        $all = array_combine($benefitsPercent, $persianValue);
+                        ?>
+                        <?php if (count($all) > 0): ?>
+                            <div style=""> <?php echo $this->__('Skin and hair benefits'); ?> </div>
+                                <ul class = "nar-benefits-percent" >
+                                <?php foreach ($all as $key => $val): ?>
+                                    <li class="" style="float: none; display: none">
+                                    	<span style = "width: <?php echo $key ?>%;"></span>
+										<span><?php echo $key.' % '.$val ?></span>
+                                    </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                        <?php endif; ?>
+                        </div>
+                    <?php endif ?>
+					<a href="<?php echo $_product->getProductUrl() ?>" class=" nar-link-green"></a>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <!--script type="text/javascript">decorateList('products-list', 'none-recursive')</script-->
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+    <?php
+        $layout_column = $this->getLayout()->getBlock('root')->getTemplate();
+        if ($layout_column == 'page/1column.phtml') {
+            $column_count = $theme->getCfg('category_grid/column_one_count');
+            $column_count_1600 = $theme->getCfg('category_grid/column_one_count_1600');
+            $column_count_1200 = $theme->getCfg('category_grid/column_one_count_1200');
+            $column_count_992 = $theme->getCfg('category_grid/column_one_count_992');
+            $column_count_768 = $theme->getCfg('category_grid/column_one_count_768');
+        } elseif ($layout_column == 'page/3columns.phtml') {
+            $column_count = $theme->getCfg('category_grid/column_three_count');
+            $column_count_1600 = $theme->getCfg('category_grid/column_three_count_1600');
+            $column_count_1200 = $theme->getCfg('category_grid/column_three_count_1200');
+            $column_count_992 = $theme->getCfg('category_grid/column_three_count_992');
+            $column_count_768 = $theme->getCfg('category_grid/column_three_count_768');
+        } else {
+            $column_count = $theme->getCfg('category_grid/column_count');
+            $column_count_1600 = $theme->getCfg('category_grid/column_count_1600');
+            $column_count_1200 = $theme->getCfg('category_grid/column_count_1200');
+            $column_count_992 = $theme->getCfg('category_grid/column_count_992');
+            $column_count_768 = $theme->getCfg('category_grid/column_count_768');
+        }
+        switch ($column_count) {
+            case 2:
+                $col_tp = 'tp-2-col';
+                break;
+            case 3:
+                $col_tp = 'tp-3-col';
+                break;
+            case 4:
+                $col_tp = 'tp-4-col';
+                break;
+            case 5:
+                $col_tp = 'tp-5-col';
+                break;
+            case 6:
+                $col_tp = 'tp-6-col';
+                break;
+            
+            default:
+                $col_tp = '';
+                break;
+        }
+        switch ($column_count_1600) {
+            case 2:
+                $col_lg = 'col-lg-6';
+                break;
+            case 3:
+                $col_lg = 'col-lg-4';
+                break;
+            case 4:
+                $col_lg = 'col-lg-3';
+                break;
+            case 5:
+                $col_lg = 'tp-lg-5-col';
+                break;
+            case 6:
+                $col_lg = 'col-lg-2';
+                break;
+            
+            default:
+                $col_lg = '';
+                break;
+        }
+        switch ($column_count_1200) {
+            case 2:
+                $col_md = 'col-md-6';
+                break;
+            case 3:
+                $col_md = 'col-md-4';
+                break;
+            case 4:
+                $col_md = 'col-md-3';
+                break;
+            case 5:
+                $col_md = 'tp-md-5-col';
+                break;
+            case 6:
+                $col_md = 'col-md-2';
+                break;
+            
+            default:
+                $col_md = '';
+                break;
+        }
+        switch ($column_count_992) {
+            case 2:
+                $col_sm = 'col-sm-6';
+                break;
+            case 3:
+                $col_sm = 'col-sm-4';
+                break;
+            case 4:
+                $col_sm = 'col-sm-3';
+                break;
+            
+            default:
+                $col_sm = '';
+                break;
+        }
+        switch ($column_count_768) {
+            case 1:
+                $col_xs = 'col-xs-12';
+                break;
+            case 2:
+                $col_xs = 'col-xs-6';
+                break;
+            case 3:
+                $col_xs = 'col-xs-4';
+                break;
+            
+            default:
+                $col_xs = '';
+                break;
+        }
+    ?>
+    <ul class="products-grid row">
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php $i++; ?>
+        <li class="item <?php echo $col_xs.' '.$col_sm.' '.$col_md.' '.$col_lg.' '.$col_tp; ?>">
+
+        <div class="product-item">
+            <div class="product-img-grid">
+                <div class="product-show">
+                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                        <?php /*--Alma echo $this->helper('typologancee')->getLabel($_product);  */?>
+                        <?php if($_product->getAttributeText('quality_guarantee')): ?>
+                            <span class="n_guarantee n_quality_guarantee"><span><?php echo $_product->getAttributeText('quality_guarantee'); ?></span></span>
+                        <?php endif ?>
+                        <?php if($_product->getAttributeText('effect_guarantee')): ?>
+                            <span class="n_guarantee n_effect_guarantee"><span><?php echo $_product->getAttributeText('effect_guarantee'); ?></span></span>
+                        <?php endif ?>
+                        <?php if($_product->getAttributeText('purity_guarantee')): ?>
+                            <span class="n_guarantee n_purity_guarantee"><span><?php echo $_product->getAttributeText('purity_guarantee'); ?></span></span>
+                        <?php endif ?>
+                        <span class="front margin-image">
+                            <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                data-src="<?php echo $helpImg->getImg($_product, $imgWidth, $imgHeight, 'small_image'); ?>"
+                                src="<?php echo $this->getSkinUrl('images/blank.png', $theme->checkSSL()) ?>" class="img-responsive lazy"
+                                alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        </span>
+                        <?php if ($theme->getCfg('category/alt_image')): ?>
+                            <span class="product-img-additional back margin-image">
+                                <?php echo $theme->getAltImgHtml($_product, $imgWidth, $imgHeight); ?>
+                            </span>
+                        <?php endif; ?>
+                    </a>
+                    <div class="category-over product-show-box">
+                        <div class="main-quickview">
+                            <button type="button"  data-placement="top" title="<?php echo $this->__('Quick view') ?>" class="btn show-quickview" data-id="<?php echo $_product->getId(); ?>"><span><i aria-hidden="true" class="arrow_expand"></i><?php //echo $this->__('Quick view') ?></span></button>
+                            <a class="product-quickview" rel="nofollow" href="<?php echo $this->getUrl('ajaxcart/index/options/product_id/' . $_product->getId(), $theme->checkSSL()); ?>" data-id='quickview-<?php echo $_product->getId()?>' style='display:none'><?php echo $this->__('Quick view') ?></a>
+                        </div>
+                    </div>
+                    <?php
+                        if ($this->getChild('name.after')) {
+                            $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
+                            foreach ($_nameAfterChildren as $_nameAfterChildName) {
+                                $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
+                                $_nameAfterChild->setProduct($_product);
+                                echo $_nameAfterChild->toHtml();
+                            }
+                        }
+                    ?>
+                </div>
+            </div>
+            <div class="top-actions-inner">
+                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                <?php if ($_product->getData("n_aromabeneit")): ?>
+                    <div class="nar-benefits-list summer-benefits-list" style="">
+                     <?php
+                     $persianValue = explode(",", $_product->getResource()->getAttribute('n_aromabeneit')->getFrontend()->getValue($_product));
+                     $benefitsPercent = explode(',', $_product->getData('aromabenefits_percent'));
+                      $all = array_combine($benefitsPercent, $persianValue);
+                     ?>
+                     <?php if (count($all) > 0): ?>
+                     	<div style="text-align: right;"> <?php echo $this->__('Aromtherapy benefits'); ?> </div>
+                            <ul class = "nar-benefits-percent" >
+                                <?php  $i = 2;
+                                foreach ($all as $key => $val): 
+                                	if ($i < 1) { break; } 
+                                	$i--; ?>
+                                <li class="" style="display: block; float: none; margin-left: 0">
+                                	<span style = "width: <?php echo $key ?>%;"></span>
+									<span><?php echo $key.' % '.$val ?></span>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                    <?php endif; ?>
+                    </div>
+                <?php endif ?>
+            </div>
+			<a style="display: block; width: 150px; margin: 15px auto 0 auto; text-align: center;" href="<?php echo $_product->getProductUrl() ?>" class=" nar-link-green">مشاهده محصول</a>
+        </div>
+        </li>
+    <?php endforeach ?>
+    </ul>
+    <!--script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script-->
+    <?php endif; ?>
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+
+</div>
+<script>
+    jQuery('[data-toggle="tooltip"]').tooltip({
+        container: 'body'
+    });
+    //lazyload
+    $typo("img.lazy").lazy({
+        bind: 'event',
+        effect : "fadeIn",
+        effectTime: 800,
+        threshold: 250,
+        retinaAttribute: "data-src-retina"
+    });
+</script>
+<?php endif; ?>
+<style>
+	.summer-benefits-list{
+		padding: 0 50px;
+	}
+	@media (max-width: 680px ){
+		.summer-benefits-list{
+			padding: 0;
+		}
+	}
+</style>

@@ -1,0 +1,234 @@
+.n-acne{
+  background-color: #a9fbff;
+  color:#418892;
+}
+.n-acne span:before{
+  content:"\f2dc";
+  background-color: #418892;
+  color:#a9fbff;
+}
+.n-spot{
+  background-color: #fcd1c1;
+  color:#925d41;
+}
+.n-spot span:before{
+  content:"\f2a1";
+  background-color: #925d41;
+  color:#fcd1c1;
+}
+.n-moisturizer{
+  background-color: #cffcc0;
+  color:#69863e;
+}
+.n-moisturizer span:before{
+  content:"\f043";
+  background-color:#69863e;
+  color:#cffcc0;
+}
+.n-wrinkle{
+  background-color: #fcc1e4;
+  color:#924177;
+}
+.n-wrinkle span:before{
+  content:"\f0d0";
+  background-color:#924177;
+  color:#fcc1e4;
+}
+.n-cleansing{
+  background-color:#c0d2fc;
+  color:#3e5686;
+}
+.n-cleansing span:before{
+  content:"\f2cd";
+  background-color: #3e5686;
+  color:#c0d2fc;
+}
+.n-dark-circle{
+  background-color:#c9c0fc;
+  color:#553e86;
+}
+.n-dark-circle span:before{
+  content:"\f140";
+  background-color:#553e86;
+  color:#c9c0fc;
+}
+.n-hair-fall{
+  background-color:#fecbff;
+  color:#863e82;
+}
+.n-hair-fall span:before{
+  content:"\f0c4";
+  background-color:#863e82;
+  color:#fecbff;
+}
+.n-dandruff{
+  background-color:#effcbc;
+  color:#80863e;
+}
+.n-dandruff span:before{
+  content:"\f1bb";
+  background-color:#80863e;
+  color:#effcbc;
+}
+.n-conditioner{
+  background-color:#caffe4;
+  color:#3e8659;
+}
+.n-conditioner span:before{
+  content:"\f0c3";
+  background-color:#3e8659;
+  color:#caffe4;
+}
+.n-fitness{
+  background-color:#ffc8c8;
+  color:#863e3e;
+}
+.n-fitness span:before{
+  content:"\f206";
+  background-color:#863e3e;
+  color:#ffc8c8;
+}
+.n-women{
+  background-color:#f6c8ff;
+  color:#6d3e86;
+}
+.n-women span:before{
+  content:"\f182";
+  background-color:#6d3e86;
+  color:#f6c8ff;
+}
+.n-digestion{
+  background-color:#cbffc8;
+  color:#44863e;
+}
+.n-digestion span:before{
+  content:"\f0f5";
+  background-color:#44863e;
+  color:#cbffc8;
+}
+.n-detox{
+  background-color: #f7ffc8;
+  color:#80863e;
+}
+.n-detox span:before{
+  content:"\f094";
+  background-color: #80863e;
+  color:#f7ffc8;
+}
+.n-headache{
+  background-color: #fff3c8;
+  color:#866e3e;
+}
+.n-headache span:before{
+  content:"\f0a1";
+  background-color: #866e3e;
+  color:#fff3c8;
+}
+.n-joint-pain{
+  background-color: #ffe0a7;
+  color:#8d6d13;
+}
+.n-joint-pain span:before{
+  content:"\f0e7";
+  background-color: #8d6d13;
+  color:#ffe0a7;
+}
+.n-insomnia{
+  background-color: #b2ffdf;
+  color:#138d5a;
+}
+.n-insomnia span:before{
+  content:"\f2d6";
+  background-color: #138d5a;
+  color:#b2ffdf;
+}
+.n-children{
+  background-color: #ff63ab;
+  color:#410621;
+}
+.n-children span:before{
+  content:"\f1ae";
+  background-color:#410621;
+  color:#ff63ab;
+}
+.n-cleaning{
+  background-color: #d1fff0;
+  color:#3e8671;
+}
+.n-cleaning span:before{
+  content:"\f015";
+  background-color: #3e8671;
+  color: #d1fff0;
+}
+.n-peeling{
+  background-color: #f6fcc0;
+  color:#85863e;
+}
+.n-peeling span:before{
+  content:"\f1be";
+  background-color:#85863e;
+  color: #f6fcc0;
+}
+.n-cellulite{
+  background-color:  #eac0fc;
+  color:#9153ac;
+}
+.n-cellulite span:before{
+  content:"\f18c";
+  background-color:#9153ac;
+  color:  #eac0fc;
+}
+.n-pores{
+  background-color: #67f1f7;
+  color:#1a777b;
+}
+.n-pores span:before{
+  content:"\f1fc";
+  background-color:#1a777b;
+  color: #67f1f7;
+}
+.n-relaxing{
+  background-color: #b5f585;
+  color:#315609;
+}
+.n-relaxing span:before{
+  content:"\f118";
+  background-color:#315609;
+  color: #b5f585;
+}
+.n-uplift{
+  background-color: #ff5c98;
+  color:#56091e;
+}
+.n-uplift span:before{
+  content:"\f209";
+  background-color:#56091e;
+  color: #ff5c98;
+}
+.n-sweetener{
+  background-color: #bca8f9;
+  color:#270956;
+}
+.n-sweetener span:before{
+  content:"\f1fd";
+  background-color:#270956;
+  color: #bca8f9;
+}
+.n-vegeterain{
+  background-color: #8afd9d;
+  color:#09561a;
+}
+.n-vegeterain span:before{
+  content:"\f18c";
+  background-color:#09561a;
+  color: #8afd9d;
+}
+.n-energize{
+  background-color: #ff8af1;
+  color:#59175a;
+}
+.n-energize span:before{
+  content:"\f06d";
+  background-color:#59175a;
+  color: #ff8af1;
+}

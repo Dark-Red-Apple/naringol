@@ -1,0 +1,44 @@
+<?php
+
+$helper = Mage::helper('typowidget');
+$resizeImg_helper = Mage::helper('naringol_resizeimage');
+?>
+<div class="block block-blog">
+    <?php if ($posts = $this->getRecent()): ?>
+        <div class="block-title">
+            <span><?php echo Mage::helper('blog')->__('Recent Posts'); ?></span>
+        </div>
+        <div class="block-content">
+            <div class="menu-recent">
+                <ul>
+                    <?php foreach ($posts as $post): ?>
+
+                        <?php $img = $helper->getImgBlog($post->getShortContent()); ?>
+                        <li><a href="<?php echo $post->getAddress(); ?>" >
+                                <?php if (!$img) { $img = 'wysiwyg\blog-default-tumbnail.jpg'; }?>
+                                <img style="width: 30px;height: 30px;border-radius: 100%;object-fit: cover;object-position: center;margin-left: 4px;" src="<?php echo  $resizeImg_helper->resizeImg($img, 100, 100, TRUE); ?>"  alt="<?php echo $post->getTitle(); ?>"/>
+                                <?php echo $post->getTitle(); ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->getCategories()->count() && Mage::getStoreConfig('blog/menu/category')): ?>
+            <div class="block-title">
+                <span><?php echo Mage::helper('blog')->__('Categories'); ?></span>
+            </div>
+            <div class="block-content">
+                <div class="menu-categories">
+                    <ul>
+                        <?php $cats = $this->getCategories(); ?>
+                        <?php foreach ($cats as $cat): ?>
+                            <li><a href="<?php echo $cat->getAddress(); ?>" ><?php echo $cat->getTitle(); ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+    <?php endif; ?>
+
+    <?php echo $this->getChildHtml('blog_tags'); ?>
+</div>

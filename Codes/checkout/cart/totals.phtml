@@ -1,0 +1,332 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ *
+ * @see Mage_Checkout_Block_Cart_Totals
+ * @var $this Mage_Checkout_Block_Cart_Totals
+ */
+?>
+<?php
+$quote = Mage::getSingleton('checkout/session')->getQuote();
+$resource = Mage::getSingleton('core/resource');
+$readConnection = $resource->getConnection('core_read');
+$query = 'SELECT * FROM ' . $resource->getTableName('directory_country_region');
+$results = $readConnection->fetchAll($query);
+$getShippingUrl = Mage::getUrl('customizeonepage/index/estimated');
+$updateShippingPrice = Mage::getUrl('customizeonepage/index/updateShipping');
+
+$quoteId = Mage::getSingleton('checkout/session')->getQuote()->getId();
+$storeId = Mage::app()->getStore()->getStoreId();
+$availableMethods = Mage::getModel('checkout/cart_shipping_api')->getShippingMethodsList($quoteId);
+
+?>
+<div class="totals-wrap">
+    <div class="totals-inner">
+        <?php if ($this->canApplyMsrp()): ?>
+            <div class="cart-msrp-totals"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></div>
+        <?php else: ?>
+            <table id="shopping-cart-totals-table">
+                <col/>
+                <col width="1"/>
+                <tfoot>
+                <?php echo $this->renderTotals('footer'); ?>
+                </tfoot>
+                <tbody>
+                <tr>
+                    <td style="width: 100px;"><?= $this->__('Discount Codes') ?></td>
+                    <td style="cursor:pointer " id="add-coupon"
+                        class="add-c"><?= $this->__('Add Coupon') ?></td>
+                </tr>
+                <tr id="couponForm" style="display: none">
+                    <td colspan="2">
+                        <form id="discountForm" action="<?= Mage::getUrl('checkout/cart/couponPost'); ?>" method="post">
+                            <input placeholder="<?php echo $this->__('Enter your coupon code if you have one.') ?>"
+                                   class="input-text" id="coupon_code" name="coupon_code" value=""/>
+                            <button style="margin-top: 10px;" type="button"
+                                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('Apply Coupon')) ?>"
+                                    class="button" onclick="discountForm.submit(false)"
+                                    value="<?php echo Mage::helper('core')->quoteEscape($this->__('Apply Coupon')) ?>">
+                                <span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:100px;"><?= $this->__('هزینه ارسال') ?></td>
+                    <td style="cursor: pointer"
+                        id="change-shipping"><?php
+                        if (number_format($quote->getShippingAddress()->getShippingAmount()) <= 0) {
+                            echo "شهر خود را انتخاب کنید";
+                        } else {
+                            echo number_format($quote->getShippingAddress()->getShippingAmount());
+                        }
+                        ?></td>
+                </tr>
+                <tr id="regions" style="display:none;">
+                    <td style="vertical-align: top;width: 100px;">انتخاب شهر</td>
+                    <td style="width: 176px;">
+                        <select name="" id="reg">
+                            <?php for ($i = 0; $i <= count($results); $i++): ?>
+                                <option value="<?= $results[$i]['region_id'] ?>"><?= $results[$i]['default_name'] ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <div style="cursor: pointer"
+                             id="estimated_shipping"><?= $this->__('Estimated Shipping') ?></div>
+                    </td>
+                </tr>
+                <?php
+                $showMethods = Mage::getSingleton('core/session')->getShowMethods();
+                Mage::getSingleton('core/session')->setShowMethods(false);
+                if ($showMethods):
+                    ?>
+                    <tr>
+                        <td colspan="2">
+                            <div class="estimator-form--default">
+                                <ul id="shipp-list">
+                                    <?php foreach ($availableMethods as $available): ?>
+                                        <li>
+                                            <!--    <dl></dl> -->
+                                            <dt></dt>
+                                            <input onchange="saveMeth(this.value)" type="radio" name="methd"
+                                                   value="<?= $available['code'] ?>">
+                                            <label>
+                                                <?php
+                                                $auxStr = $this->escapeHtml($available['method_title']);
+                                                $jalaliObj = new Netweb_Shamsidate_Model_Jalali();
+                                                $weekAr = array(
+                                                    'Monday' => 'دوشنبه',
+                                                    'Tuesday' => 'سه شنبه',
+                                                    'Wednesday' => 'چهارشنبه',
+                                                    'Thursday' => 'پنجشنبه',
+                                                    'Friday' => 'جمعه',
+                                                    'Saturday' => 'شنبه',
+                                                    'Sunday' => 'یکشنبه'
+                                                );
+                                                $weekAr3 = array(
+                                                    'Monday' => 1,
+                                                    'Tuesday' => 2,
+                                                    'Wednesday' => 3,
+                                                    'Thursday' => 4,
+                                                    'Friday' => 5,
+                                                    'Saturday' => 6,
+                                                    'Sunday' => 7
+                                                );
+                                                $weekAr4 = array(
+                                                    1 => 'Monday',
+                                                    2 => 'Tuesday',
+                                                    3 => 'Wednesday',
+                                                    4 => 'Thursday',
+                                                    5 => 'Friday',
+                                                    6 => 'Saturday',
+                                                    7 => 'Sunday'
+                                                );
+                                                $weekAr5 = array(
+                                                    1 => 'Monday',
+                                                    2 => 'Tuesday',
+                                                    3 => 'Wednesday',
+                                                    4 => 'Thursday',
+                                                    5 => 'Friday',
+                                                    6 => 'Saturday',
+                                                    7 => 'Sunday',
+                                                    8 => 'Monday',
+                                                    9 => 'Tuesday',
+                                                    10 => 'Wednesday',
+                                                    11 => 'Thursday',
+                                                    12 => 'Friday',
+                                                    13 => 'Saturday',
+                                                    14 => 'Sunday'
+                                                );
+                                                $dayPointer = -1;
+                                                foreach ($weekAr as $weekKey => $weekVal) {
+                                                    if ($weekKey == 'Saturday')
+                                                        continue;
+                                                    if (strpos($auxStr, $weekVal) !== false)
+                                                        $dayPointer = $weekKey;
+                                                }
+                                                if ($dayPointer == -1 && strpos($auxStr, $weekAr['Saturday']) !== false)
+                                                    $dayPointer = 'Saturday';
+                                                if ($dayPointer != -1) {
+                                                    $outLater = -1;
+                                                    for ($ii = date('w'); $ii <= 14; $ii++) {
+                                                        if ($weekAr5[$ii] == $weekAr4[$weekAr3[$dayPointer]]) {
+                                                            $outLater = $ii - date('w');
+                                                            break;
+                                                        }
+                                                    }//for
+                                                    if ($outLater == 0)
+                                                        $outLater = 7;
+                                                    $georgianAr = explode('-', date('Y-m-d', strtotime("+$outLater days")));
+                                                    $jalaliAr = $jalaliObj->gregorianToJalali($georgianAr[0], $georgianAr[1], $georgianAr[2]);
+                                                    $jalaliStr = implode('/', $jalaliAr);
+                                                    $strResult = $auxStr ;
+                                                    $strResult = str_replace($weekAr[$dayPointer], '<span style="font-weight: bold;padding: 0 0px;" class="jalali-checkout-1">'.$weekAr[$dayPointer].' '.$jalaliStr.'</span>', $strResult);
+                                                    echo $strResult;
+                                                }//if
+                                                else {
+                                                    echo $auxStr;
+                                                }
+                                                ?>
+                                            </label>
+                                            <?= number_format($available['price']) ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+
+
+    <div style="display: none"><img src="https://naringol.com/media/netweb/er.jpg" alt="" class="img-responsive"></div>
+</div>
+
+
+<style>
+    .grand-total {
+        width: 100%;
+    }
+
+    td.a-right:first-child {
+        text-align: right;
+        color: #777;
+    }
+
+    .grand-total .totals-wrap {
+        margin-bottom: 15px;
+
+        border-bottom: 2px solid #cccccc;
+    }
+
+    .grand-total .btn-checkout {
+        background-color: #52c3c6 !important;
+        border-color: #52c3c6 !important;
+        padding: 0px !important;
+        min-height: 50px;
+        margin-bottom: 0px;
+
+        float: left;
+        margin-right: 16px;
+    }
+
+    .grand-total {
+        padding: 15px 30px 30px;
+        float: left;
+    }
+
+    .shopping-cart .price {
+        color: #52c3c6;
+
+    }
+
+    .grand-total .totals-wrap .totals-inner {
+        margin: 0;
+        margin-bottom: 15px;
+    }
+
+    .checkout-types li {
+        width: 60%;
+        float: left;
+    }
+
+    .productitem img {
+        height: unset;
+        max-height: unset;
+    }
+
+
+</style>
+<script>
+    jQuery("#add-coupon").click(function () {
+        if (jQuery(this).hasClass('add-c')) {
+            jQuery(this).text('<?php echo $this->__('Cancel') ?>');
+            jQuery(this).removeClass('add-c');
+            jQuery(this).addClass('cancel-c');
+            jQuery("#couponForm").show();
+        } else if (jQuery(this).hasClass('cancel-c')) {
+            jQuery(this).text('<?php echo $this->__('Add Coupon') ?>');
+            jQuery(this).addClass('add-c');
+            jQuery(this).removeClass('cancel-c');
+            jQuery("#couponForm").hide();
+        }
+    })
+
+
+    jQuery("#change-shipping").click(function () {
+        jQuery("#regions").show()
+    });
+
+    jQuery("#estimated_shipping").click(function () {
+        var reg = jQuery("#reg").val();
+        jQuery.ajax({
+            url: "<?php echo $getShippingUrl; ?>",
+            cache: false,
+            data: {region: reg},
+            success: function (html) {
+                location.reload();
+                var methods = JSON.parse(html);
+                /*var ul = jQuery('#shipp-list');
+                ul.html('');
+                jQuery.each(methods, function(index, value) {
+                    var li = jQuery('<li></li>');
+                    var dl = li.append('<dl></dl>');
+                    var dt = dl.append('<dt></dt>');
+                    dt.append('<input onchange="saveMeth(this.value)" type=radio name="methd" value="'+value.code+'" />')
+                    dt.append('<label>'+value.method_title+'</label>');
+                    dt.append(value.price);
+                    ul.append(li);
+                });*/
+            }
+        });
+    });
+
+    function saveMeth(code) {
+        jQuery("#_loader_msg_1").text('<?php echo $this->__('Saving ... ') ?>');
+        jQuery("#_loader").show();
+        jQuery.ajax({
+            url: "<?php echo $updateShippingPrice; ?>",
+            cache: false,
+            data: {shipping_method: code},
+            success: function (html) {
+                setTimeout(function () {
+                    jQuery("#_loader").hide();
+                    location.reload();
+                }, 2000);
+                // setTimeout(function () {
+                //     location.reload();
+                // }, 4000);
+            }
+        });
+    }
+
+
+
+</script>

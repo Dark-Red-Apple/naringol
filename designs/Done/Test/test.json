@@ -1,0 +1,110 @@
+{
+   "data": [
+      {
+         "id": "11",
+		 "rTitle": "نوع پوست چرب مشکل پوستی جوش",
+         "recommendations": [
+            {
+               "recommend_number": "1",
+			   "pName1": "روغن هسته انگور ",
+			   "pName2": "روغن درخت چای",			   
+			   "recommend_description": "پوست شما چربی بیش از اندازه ای تولید می کند و سیبوم پوست شما اسید لینولئیک پایینی دارد به همین دلیل چسبنده شده منافذ را می بندد  و شما دچار جوش های سر سیاه و سر سفید و زیر پوست می شوید. علاوه بر داشتن روتین روزانه ای که شامل فوم یا ژل شست وشو دهنده و کرم آبرسان می شود اضافه نمودن روغن هایی که دارای میزان بالایی از اسید لینولئیک هستند و هم چنین دارای خاصیت ضد بامتری و پاکسازی کننده قوی هستند می تواند به تعادل رساندن چربی پوست شما و درمان انواع جوش ها کمک کند.",
+			   "recommend_products_link1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_link2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_benefits": {
+					"benefit1":"",
+					"benefit2":"",
+					"benefit3":"",
+					"benefit4":""
+			   },
+			   "recommend_how_to_use":{
+					"how_to_use1": "",
+					"how_to_use2": "",
+					"how_to_use3": "",
+					"how_to_use4": "",
+					"how_to_use5": ""
+			   }
+            },
+			{
+               "recommend_number": "2",
+			   "pName1": "روغن هسته انگور ",
+			   "pName2": "روغن درخت چای",			   
+			   "recommend_description": "پوست شما چربی بیش از اندازه ای تولید می کند و سیبوم پوست شما اسید لینولئیک پایینی دارد به همین دلیل چسبنده شده منافذ را می بندد  و شما دچار جوش های سر سیاه و سر سفید و زیر پوست می شوید. علاوه بر داشتن روتین روزانه ای که شامل فوم یا ژل شست وشو دهنده و کرم آبرسان می شود اضافه نمودن روغن هایی که دارای میزان بالایی از اسید لینولئیک هستند و هم چنین دارای خاصیت ضد بامتری و پاکسازی کننده قوی هستند می تواند به تعادل رساندن چربی پوست شما و درمان انواع جوش ها کمک کند.",
+			   "recommend_products_link1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_link2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_benefits": {
+					"benefit1":"",
+					"benefit2":"",
+					"benefit3":"",
+					"benefit4":""
+			   },
+			   "recommend_how_to_use":{
+					"how_to_use1": "",
+					"how_to_use2": "",
+					"how_to_use3": "",
+					"how_to_use4": "",
+					"how_to_use5": ""
+			   }
+            }
+         ]
+      },
+	  {
+         "id": "12",
+		 "rTitle": "نوع پوست چرب مشکل لک و جای جوش",
+         "recommendations": [
+            {
+               "recommend_number": "1",
+			   "pName1": "روغن هسته انگور ",
+			   "pName2": "روغن درخت چای",			   
+			   "recommend_description": "پوست شما چربی بیش از اندازه ای تولید می کند و سیبوم پوست شما اسید لینولئیک پایینی دارد به همین دلیل چسبنده شده منافذ را می بندد  و شما دچار جوش های سر سیاه و سر سفید و زیر پوست می شوید. علاوه بر داشتن روتین روزانه ای که شامل فوم یا ژل شست وشو دهنده و کرم آبرسان می شود اضافه نمودن روغن هایی که دارای میزان بالایی از اسید لینولئیک هستند و هم چنین دارای خاصیت ضد بامتری و پاکسازی کننده قوی هستند می تواند به تعادل رساندن چربی پوست شما و درمان انواع جوش ها کمک کند.",
+			   "recommend_products_link1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_link2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_benefits": {
+					"benefit1":"",
+					"benefit2":"",
+					"benefit3":"",
+					"benefit4":""
+			   },
+			   "recommend_how_to_use":{
+					"how_to_use1": "",
+					"how_to_use2": "",
+					"how_to_use3": "",
+					"how_to_use4": "",
+					"how_to_use5": ""
+			   }
+            },
+			{
+               "recommend_number": "2",
+			   "pName1": "روغن هسته انگور ",
+			   "pName2": "روغن درخت چای",			   
+			   "recommend_description": "پوست شما چربی بیش از اندازه ای تولید می کند و سیبوم پوست شما اسید لینولئیک پایینی دارد به همین دلیل چسبنده شده منافذ را می بندد  و شما دچار جوش های سر سیاه و سر سفید و زیر پوست می شوید. علاوه بر داشتن روتین روزانه ای که شامل فوم یا ژل شست وشو دهنده و کرم آبرسان می شود اضافه نمودن روغن هایی که دارای میزان بالایی از اسید لینولئیک هستند و هم چنین دارای خاصیت ضد بامتری و پاکسازی کننده قوی هستند می تواند به تعادل رساندن چربی پوست شما و درمان انواع جوش ها کمک کند.",
+			   "recommend_products_link1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic1": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_link2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_products_pic2": "http://www.facebook.com/X999/posts/Y999",
+			   "recommend_benefits": {
+					"benefit1":"",
+					"benefit2":"",
+					"benefit3":"",
+					"benefit4":""
+			   },
+			   "recommend_how_to_use":{
+					"how_to_use1": "",
+					"how_to_use2": "",
+					"how_to_use3": "",
+					"how_to_use4": "",
+					"how_to_use5": ""
+			   }
+            }
+         ]
+      },
+
+      }
+   ]
+}

@@ -1,0 +1,220 @@
+<?php
+/**
+ * ┌┬┐┬ ┬┌─┐┌─┐┌─┐┌┬┐┌─┐┬─┐┌─┐┌─┐ ┌─┐┌─┐┌┬┐
+ *  │ └┬┘├─┘│ │└─┐ │ │ │├┬┘├┤ └─┐ │  │ ││││
+ *  ┴  ┴ ┴  └─┘└─┘ ┴ └─┘┴└─└─┘└─┘o└─┘└─┘┴ ┴
+ *
+ * @copyright    Copyright (C) 2015 typostores.com. All Rights Reserved.
+ *
+ */
+?>
+<?php
+$resizeImg_helper = Mage::helper('naringol_resizeimage');
+
+$theme = $this->helper('typologancee');
+$helpImg = $this->helper('typologancee/image');
+$imgWidth = $theme->getCfg('category/image_width') ? $theme->getCfg('category/image_width') : 270;
+$imgHeight = $theme->getCfg('category/image_height') ? $theme->getCfg('category/image_height') : 360;
+if ($theme->getCfg('category/aspect_ratio')) {
+    $imgHeight = 0;
+}
+$cfaltimage = $theme->getCfg('category/alt_image');
+$hoveraltClass = ($cfaltimage == 1) ? 'front-img' : '';
+$_helper = $this->helper('catalog/output');
+/* @var $this TypoStores_Widget_Block_Widget_Collection */
+$productCollection = $this->getData('collection');
+$count = $productCollection ? $productCollection->count() : 0;
+$carousel = $this->getData('carousel');
+$row = $this->getData('row');
+$pricePrefixId = $this->getData('price-prefix');
+$column = $carousel == 1 && $row == 1 ? $count : ($carousel == 1 && $row > 1 ? $row : $this->getData('column'));
+$lazy = $carousel == 1 ? 'owl-lazy' : 'lazy';
+/* @var $helper Mage_Catalog_Helper_Image */
+$helper = Mage::helper('catalog/image');
+
+$btn_rating = $theme->getCfg('category_grid/display_rating');
+$btn_cart = $theme->getCfg('category_grid/display_addtocart');
+$btn_wishlist = $theme->getCfg('category_grid/display_addtowishlist');
+$btn_compare = $theme->getCfg('category_grid/display_addtocompare');
+
+$column_count = $this->getData('column_count');
+$column_count_1600 = $this->getData('column_count_1600');
+$column_count_1200 = $this->getData('column_count_1200');
+$column_count_992 = $this->getData('column_count_992');
+$column_count_768 = $this->getData('column_count_768');
+
+if ($column_count_1600) {
+    $grid_block = $this->helper('typowidget')->gridBlockWidget($column_count, $column_count_1600, $column_count_1200, $column_count_992, $column_count_768);
+}
+?>
+<?php if (!$count): ?>
+    <p class="note-msg">
+        <?php echo $this->__('There are no products matching the selection.') ?>
+    </p>
+<?php else: ?>
+    <?php $i = 0;
+    foreach ($productCollection as $_product): ?>
+        <?php if ($carousel == 1 && $row > 1 && $i == 0): ?>
+            <div class="owl-carousel owl-theme">
+        <?php endif ?>
+        <?php if ($i == 0 || ($row > 1 && $i % $row == 0)): ?>
+        <div class="category-products collection-position col-styl2">
+        <ul class="products-grid <?php if ($carousel == 0) echo 'row' ?> <?php echo $carousel && $row == 1 ? 'owl-carousel owl-theme' : '' ?>">
+    <?php endif ?>
+        <?php $i++ ?>
+        <li class="item <?php if ($carousel == 0) echo $grid_block; ?>" >
+            <div class="item-inner">
+                <div class="product-item" style="display: flex;border: 1px solid #86ffee;padding: 0;">
+                    <div class="top-actions-inner col-lg-6 col-md-6 col-xs-6 col-sm-6"
+                         style="display: flex;flex-direction: column;border-left: 1px solid #86ffee;padding: 0;">
+                        <h3 class="product-name" s>
+                            <a href="<?php echo $_product->getProductUrl() ?>"
+                               title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+                                <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                            </a>
+                        </h3>
+                        <?php if($_product->getData('description')): ?>
+                            <div style=" overflow: hidden; display: -webkit-box; -webkit-line-clamp: 18; -webkit-box-orient: vertical; max-height: 98px; padding: 0 20px; text-align: justify;"><?php echo $_product->getData('description'); ?> </div>
+                            <?php  ?>
+                        <?php else: ?>
+                            <div style=" overflow: hidden; display: -webkit-box; -webkit-line-clamp: 18; -webkit-box-orient: vertical; max-height: 98px; padding: 0 20px; text-align: justify;"><?php echo $_product->getData('aroma_therapy_benefits'); ?> </div>
+                        <?php endif ?>
+
+                        <a href="<?php echo $_product->getProductUrl() ?>"
+                           style="text-align: center; margin-bottom: 10px; color:#47b0a2;"> <?php echo $this->__('(For more information click here)'); ?></a>
+
+                        <div class="table" style=" padding: 10px;">
+                            <?php if($_product->getData("n_benefits")):
+                                $ben = "n_benefits";
+                                $ben_percent = "benefits_percent" ;
+                            else :
+                                $ben = "n_aromabeneit";
+                                $ben_percent = "aromabenefits_percent" ;
+                            endif;
+                            ?>
+                            <?php if ($_product->getData($ben)): ?>
+                                <div class="nar-benefits-list " style="">
+                                    <?php
+                                    $persianValue = explode(",", $_product->getResource()->getAttribute($ben)->getFrontend()->getValue($_product));
+                                    $benefitsPercent = explode(',', $_product->getData($ben_percent));
+
+                                    ?>
+                                    <?php if (count($persianValue) > 0): ?>
+                                        <div style="text-align: right;"> <?php echo 'خواص:' ?> </div>
+                                        <ul class="nar-benefits-percent">
+                                            <?php $i = 0;
+                                            while ($i < 3 && $persianValue[$i]):?>
+                                                <li>
+                                                    <span style="width: <?php echo $benefitsPercent[$i] ?>%;"></span>
+                                                    <span style=" line-height: 13px; display: inline-block; vertical-align: middle;"><?php echo $benefitsPercent[$i] . ' % ' . $persianValue[$i] ?></span>
+                                                </li>
+                                                <?php $i++; ?>
+                                            <?php endwhile; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif ?>
+                        </div>
+
+
+                    </div>
+                    <div class="product-img-grid col-lg-6 col-md-6 col-xs-6 col-sm-6" style="padding: 0">
+                        <div class="product-show" style="display: flex; flex-direction: column; height: 100%;">
+                            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; ">
+                                <a href="<?php echo $_product->getProductUrl() ?>"
+                                   title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+
+<?php /*  if ($_product->getSpecialPicture() && ($_product->getSpecialPicture () != 'no_selection')):
+$_img = '<img title="'.$this->htmlEscape($this->getImageLabel()).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" src="'.$this->helper('catalog/image')->init($_product, 'special_picture')->resize(85).'" /&gt;';
+echo $_helper->productAttribute($_product, $_img, 'special_picture');
+echo $this->helper('catalog/image')->init($_product, 'special_picture');
+endif;
+*/
+?>
+                                        <?php if ($_product->getData('special_image')):
+                                            $src = $resizeImg_helper->resizeImg($_product->getData('special_image'), $imgWidth, $imgHeight, FALSE);
+                                        else :
+                                            $src =  $helpImg->getImg($_product, $imgWidth, $imgHeight, 'small_image');
+                                        endif;
+                                        ?>
+
+                                   class="product-image" style="width: 100%; position: relative;">
+                                    <?php echo $this->helper('typologancee')->getLabel($_product); ?>
+                                    <span class="front margin-image">
+                                        <img class="img-responsive <?php echo $lazy ?> <?php echo $hoveraltClass; ?>"
+                                             data-src="<?php echo $src; ?>"
+                                             src="<?php echo $this->getSkinUrl('images/blank.png', $theme->checkSSL()) ?>"
+                                             alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                             width="<?php echo $imgWidth ?>" height="<?php echo $imgHeight ?>"/>
+                                    </span>
+                                    <?php if ($theme->getCfg('category/alt_image')): ?>
+                                        <span class="product-img-additional back margin-image">
+                                            <?php echo $theme->getAltImgHtml($_product, $imgWidth, $imgHeight); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                    <div class="product-date"
+                                         data-date="<?php echo Mage::helper('typowidget')->getDate($_product) ?>"></div>
+                                </a>
+                            </div>
+                            <?php if ($btn_cart) : ?>
+                                <div class="typo-actions clearfix">
+                                    <?php if ($btn_cart) : ?>
+                                        <div class="addtocart" style="width: 100%; margin: 0;">
+                                            <?php if ($_product->isSaleable()): ?>
+                                                <?php if (!($_product->getTypeInstance(true)->hasRequiredOptions($_product) || $_product->isGrouped())) { ?>
+                                                    <button style="width: 100%;max-width: initial;border: none;background: #5af0ff;height: 50px;"
+                                                            type="button" title="<?php echo $this->__('Add To Cart') ?>"
+                                                            data-placement="top" class="button btn-cart"
+                                                            onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>', this)">
+                                                        <span>
+                                                            <span><?php echo $this->__('Add To Cart') ?></span>
+                                                        </span>
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="button" title="<?php echo $this->__('Add To Cart') ?>"
+                                                            data-placement="top"
+                                                            class="button btn-cart show-options button-gradient"
+                                                            data-id="<?php echo $_product->getId(); ?>"
+                                                        <?php if (!Mage::getStoreConfig('ajaxcart/ajaxcart_config/enable_ajaxcart')) { ?>
+                                                            onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>', this)"
+                                                        <?php } ?>
+                                                            data-submit='<?php echo $this->getAddToCartUrl($_product) ?>'>
+                                                        <span>
+                                                            <span><?php echo $this->__('Add To Cart') ?></span>
+                                                        </span>
+                                                    </button>
+                                                    <?php if (Mage::getStoreConfig('ajaxcart/ajaxcart_config/enable_ajaxcart')) : ?>
+                                                        <a style="display: none;" rel="nofollow"
+                                                           href='<?php echo $this->getUrl('ajaxcart/index/options', array_merge($theme->checkSSL(), array('product_id' => $_product->getId()))); ?>'
+                                                           class='options-cart'
+                                                           data-id='options-cart-<?php echo $_product->getId() ?>'><?php echo $this->__('Option cart') ?></a>
+                                                    <?php endif; ?>
+                                                <?php } ?>
+                                            <?php else: ?>
+                                                <p class="availability out-of-stock">
+                                                    <span><?php echo $this->__('Out of stock') ?></span></p>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="product-show-box">
+                                <?php /*<div class="main-quickview">
+                                    <button type="button"  data-placement="top" title="<?php echo $this->__('Quick view') ?>" class="btn show-quickview" data-id="<?php echo $_product->getId(); ?>"><span><i aria-hidden="true" class="arrow_expand"></i><?php //echo $this->__('Quick view') ?></span></button>
+                                    <a class="product-quickview" rel="nofollow" href="<?php echo $this->getUrl('ajaxcart/index/options/product_id/' . $_product->getId(), $theme->checkSSL()); ?>" data-id='quickview-<?php echo $_product->getId()?>' style='display:none'><?php echo $this->__('Quick view') ?></a>
+                                </div> */ ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <?php if ($i == $count || $i == 0 || ($row > 1 && $i % $row == 0)): ?>
+        </ul>
+        </div>
+    <?php endif ?>
+        <?php if ($carousel == 1 && $row > 1 && $i == $count): ?>
+            </div>
+        <?php endif ?>
+    <?php endforeach ?>
+<?php endif ?>

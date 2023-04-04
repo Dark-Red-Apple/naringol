@@ -1,0 +1,61 @@
+
+<?php 
+if(!Mage::helper('customer')->isLoggedIn()) {
+ $loginback=$this->helper('core/url')->getCurrentUrl();
+ $check=strstr($loginback, 'customer/account/login');
+ if(!strlen($check)){
+ Mage::getSingleton('core/session')->setLoginBackUrl($loginback);
+ }
+}
+?>
+<?php
+
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+$url = Mage::getSingleton('core/url')->parseUrl($currentUrl);
+$path = $url->getPath(); 
+Mage::getSingleton('customer/session')->setBeforeAuthUrl( Mage::getBaseUrl() );
+$redirectUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB,array('_secure'=>true)).$path;
+$formActionUrl = $this->getPostActionUrl() . ( strpos( $this->getPostActionUrl(), "?" ) > 0 ? "&" : "?" ) . "referer=" . Mage::helper('core')->urlEncode( $redirectUrl );
+
+
+?>
+
+
+<?php $referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME); 
+echo Mage::helper('core')->urlDecode($referer);
+?>
+
+<form action="<?php echo Mage::getUrl('customer/account/loginPost', array('referer' => Mage::helper('core')->urlEncode($this->getUrl($path)))); ?>" method="post" id="login-form" style="display: table-cell; vertical-align: middle;">
+<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+<?php if (!Mage::getStoreConfigFlag(
+        Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD
+    )) { ?>
+    <input name="referer" type="hidden" value="<?php echo Mage::helper('core')->urlEncode(Mage::getBaseUrl()); ?>" />
+<?php } ?>
+    <h3 style="margin-top: 33px;"><?php echo $this->__("Login"); ?></h3>
+    <hr class="new1">
+    <fieldset>
+        <div class="form-group">
+            <label><?php echo $this->__("Email Address or Mobile"); ?></label>
+            <input type="text" name="login[username]" class="form-control input-text marg"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <label><?php echo $this->__("Password"); ?></label>
+            <input type="password" class="form-control input-text required-entry marg"
+                   name="login[password]" required="required">
+        </div>
+        <div class="buttons-set">
+            <p>
+               <!--  <span id="loginFrmForgotLink"><?php echo $this->__("Forgot your password?"); ?></span> -->
+                                            <a id=""href="<?php echo Mage::getUrl("customer/account/forgotpassword/"); ?>"
+                                               class="f-left">
+                                             <?php echo $this->__("Forgot your password?"); ?>
+                                                   
+                                               </a>
+            </p>
+            <button style="margin-bottom: 25px;" type="submit" class="button">
+                <span><span><?php echo $this->__('Login') ?></span></span></button>
+        </div>
+    </fieldset>
+</form>

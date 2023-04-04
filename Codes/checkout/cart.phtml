@@ -1,0 +1,234 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+?>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout_banner')->toHtml(); ?>
+<div class="shopping-cart">
+    <h2 class="title-shoping-cart"><span></span></h2>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+    </form>
+    <div class="cart-collaterals">
+        <div class="cart-collaterals-inner row">
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+<!--                <div class="row">-->
+<!--                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">-->
+<!--                        --><?php //echo $this->getChildHtml('checkout.cart.extra') ?>
+<!--                        --><?php //echo $this->getChildHtml('coupon') ?>
+<!--                        --><?php //if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+<!--                    </div>-->
+<!--                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">-->
+<!--                        --><?php //echo $this->getChildHtml('crosssell') ?>
+<!--                    </div>-->
+<!--                </div>-->
+                <?php
+                $cartUpdatedSuccess = Mage::getSingleton('customer/session')->getCartUpdated();
+                if(isset($cartUpdatedSuccess) && $cartUpdatedSuccess != ''){
+                    $cartMsg = $cartUpdatedSuccess;
+                    $msgClass= 'success-msg';
+                    $msgStyle= 'display:block;';
+                    Mage::getSingleton('customer/session')->unsCartUpdated();
+                }
+                $cartUpdatedError = Mage::getSingleton('customer/session')->getCartUpdatedError();
+                if(isset($cartUpdatedError) && $cartUpdatedError != ''){
+                    $couponMsg = $cartUpdatedError;
+                    $msgClass= 'error-msg';
+                    $msgStyle= 'display:block;';
+                    Mage::getSingleton('customer/session')->unsCartUpdatedError();
+                }
+                ?>
+                <ul class="messages">
+                    <li class="<?= $msgClass ?>" style="<?= $msgStyle ?>">
+                        <ul>
+                            <li>
+                                <span><?= $this->__($cartMsg) ?></span>
+                            </li>
+                        </ul>
+                        <i aria-hidden="true" class="icon_close"></i>
+                    </li>
+                </ul>
+
+                <div class="">
+                        <span id="item_title"><?php echo $this->__('Your cart items') ?></span>
+                        <?php foreach($this->getItems() as $_item): ?>
+                            <?php echo $this->getItemHtml($_item) ?>
+                        <?php endforeach ?>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+                <div class="grand-total">
+                <?php echo $this->getChildHtml('totals'); ?>
+                <?php if(!$this->hasError()): ?>
+                <ul class="checkout-types">
+                   <a href="http://www.naringol.com" class="btn btn-default">ادامه خرید</a>
+                <?php foreach ($this->getMethods('methods') as $method): ?>
+                    <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                    <li ><?php echo $methodHtml; ?></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </ul>
+                <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                elm = $('.toggle-class').parent().next();
+                if (elm.is(':hidden')) {
+                    elm.prev().children('.toggle-class').addClass('collapsible');
+                    elm.prev().children('.toggle-class').removeClass('expanded');
+                } else {
+                    elm.prev().children('.toggle-class').addClass('expanded');
+                    elm.prev().children('.toggle-class').removeClass('collapsible');
+                }
+                $('.toggle-class').on('click', function(event) {
+                    toggle = $(this).parent().next();
+                    toogle_elm = toggle.prev().children('.toggle-class');
+                    if (toogle_elm.hasClass('collapsible')) {
+                        toggle.slideDown();
+                        toogle_elm.addClass('expanded');
+                        toogle_elm.removeClass('collapsible');
+                    } else {
+                        toggle.slideUp();
+                        toogle_elm.addClass('collapsible');
+                        toogle_elm.removeClass('expanded');
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>
+<style>
+
+.grand-total .btn.btn-default{
+           float: right;
+    width: 35%;
+    border-radius: 0;
+    line-height: 41px;
+    color: #000;
+    border: 1px solid #000;
+    font-weight: bold;
+}
+.grand-total .btn.btn-default:hover{
+    background: #000;
+    color: #fff;
+}
+  #item_title{
+        background: #efefef;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    font-size: 23px;
+    font-weight: 700;
+    color: #777;
+  }  
+ .updateqty .plus a{
+    color: #0fabc6;
+}
+
+ .checkout-cart-index .c-cart .roo .updateqty{
+        margin-top: 0px;
+}
+
+.checkout-cart-index .cart-row{
+    float: right;
+    width: 100%;
+    padding: 15px;
+    border-bottom: 4px solid #efefef;
+}
+.checkout-cart-index .c-cart{
+    padding: 0 15px;
+}
+.checkout-cart-index #col-net{
+    padding: 0;
+    border-left: 4px solid #efefef;
+   border-right: 4px solid #efefef;
+}
+.checkout-cart-index .mines a {
+    color: #0fabc6
+}
+.checkout-cart-index .messages{
+    display: none !important;
+}
+
+
+
+@media (min-width: 768px) {
+.checkout-cart-index .main-content .container{
+    width: 90%;
+}
+.grand-total #shopping-cart-totals-table td strong {
+    font-size: 20px;
+}
+
+.c-cart .roo .price-osc {
+    font-size: 18px;
+}
+.cart-row .product-name {
+    margin: 15px 0;
+    color: #777;
+    font-size: 20px;
+}
+.checkout-types button{
+font-size: 18px;
+    width: 100%;
+    padding: 0 !important;
+}
+a.btn.btn-default {
+    font-size: 18px;
+}
+
+.checkout-cart-index .c-cart .roo .updateqty {
+    width: 110px;
+    font-size: 19px;
+    color: #777;
+}
+
+.updateqty .remove_item {
+    padding-top: 5px;
+}
+.c-cart {
+    width: 75%;
+    }
+    .productitem {
+    width: 25%;
+}
+}
+.product-name a, #my_recent_reviews .product-name a, .owl-theme .owl-controls .owl-buttons div .fa {
+    color: #777;
+    }
+
+
+
+</style>

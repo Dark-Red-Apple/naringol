@@ -1,0 +1,15 @@
+//Use this script at times of least number of visistors
+//to change values of certain attributes of all products
+
+
+ $_productCollection=Mage::getModel('catalog/product')
+                    ->getCollection()
+                    ->addAttributeToSelect('*');
+$storeId=0;
+ 
+foreach($_productCollection as $_product)  {
+    $product = Mage::getModel('catalog/product')->load($_product->getId());   
+    $data=array(
+                'narin_campaigns' => ''); 
+    Mage::getSingleton('catalog/product_action')->updateAttributes(array($product->getId()), $data, $storeId); 
+}

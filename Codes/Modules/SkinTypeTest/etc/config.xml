@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Netweb_SkinTypeTest>
+      <version>0.1.1</version>
+    </Netweb_SkinTypeTest>
+  </modules>
+  <frontend>
+    <routers>
+      <skintype>
+        <use>standard</use>
+          <args>
+            <module>Netweb_SkinTypeTest</module>
+            <frontName>skintype</frontName>
+          </args>
+      </skintype>
+    </routers>
+		<layout>
+		  <updates>
+			<SkinTypeTest>
+			  <file>skintype.xml</file>
+			</SkinTypeTest>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <skintype>
+        <class>Netweb_SkinTypeTest_Helper</class>
+      </skintype>
+    </helpers>
+	<blocks>
+	  <skintype>
+		<class>Netweb_SkinTypeTest_Block</class>
+	  </skintype>
+	</blocks>
+    <template>
+          <email>
+              <my_custom_email>
+                  <label>Custom email</label>
+                  <file>skintype_test_result.html</file>
+                  <type>html</type>
+              </my_custom_email>
+          </email>
+    </template>
+  </global>
+</config> 
